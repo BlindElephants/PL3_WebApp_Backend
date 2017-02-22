@@ -2,24 +2,23 @@
 
 //--------------------------------------------------------------
 void ofApp::setup(){
-    ofSetVerticalSync(false);
-    
-    font.load("courier", 12);
-    numClientsConnected=0;
-    
-    
+//    ofSetVerticalSync(false);
+        
     pl_console::setFbo(0, 0, 400, 150);
 
     pl_console::addLine("server initialized");
     pl_console::addLine("sending to localhost:57121");
     pl_console::addLine("receiving from node server on port:57120");
-    
-    pl_console::addLine("number clients: " + ofToString(numClientsConnected));
+    pl_console::addLine("number clients: 0");
     
     ofSetBackgroundColor(ofColor::black);
     
     send.setup("localhost", 57121);
     recv.setup(57120);
+    
+    ofxOscMessage m;
+    m.setAddress("/user/get_all/");
+    send.sendMessage(m);
 }
 
 //--------------------------------------------------------------
@@ -28,64 +27,39 @@ void ofApp::update(){
         ofxOscMessage m;
         recv.getNextMessage(m);
         
-        
-        pl_console::addLine("--msg recv'd");
-        pl_console::addLine("    " + m.getAddress());
-        
-        string s = "    ";
-        
-        if(m.getNumArgs()>0) {
-            for(int i = 0 ; i < m.getNumArgs() ; i ++ ) {
-                s += "[" + ofToString(i) + "] ";
-                switch (m.getArgType(i)) {
-                    OFXOSC_TYPE_TRUE:
-                        s += "true";
-                        break;
-                        
-                    OFXOSC_TYPE_FALSE:
-                        s += "false";
-                        break;
-                        
-                    OFXOSC_TYPE_FLOAT:
-                        s += ofToString(m.getArgAsFloat(i));
-                        break;
-                        
-                    OFXOSC_TYPE_INT32:
-                        s+= ofToString(m.getArgAsInt32(i));
-                        break;
-                        
-                    OFXOSC_TYPE_INT64:
-                        s+= ofToString(m.getArgAsInt64(i));
-                        break;
-                        
-                    OFXOSC_TYPE_STRING:
-                        s+= m.getArgAsString(i);
-                        break;
-                        
-                    default:
-                        s += m.getArgAsString(i);
-                        break;
-                }
-            }
-        }
-//        pl_console::addLine(s);
-        
         if(m.getAddress() == "/user/add/") {
             auto a = connectedUsers.insert(m.getArgAsString(0));
+            
+            //a.second is true if the element is added successfully
+            //false if the element already exists by the same key
             if(!a.second) {
                 pl_console::addLine("user already added, ERROR");
             }
             pl_console::addLine("user added: ");
             pl_console::addLine("    " + m.getArgAsString(0));
-            pl_console::addLine("num users: " + ofToString(connectedUsers.size()));
+            pl_console::addLine("number clients: " + ofToString(connectedUsers.size()));
         }
         
         if(m.getAddress() == "/user/remove/") {
             connectedUsers.erase(m.getArgAsString(0));
             pl_console::addLine("user removed: ");
             pl_console::addLine("    " + m.getArgAsString(0));
-            pl_console::addLine("num users: " + ofToString(connectedUsers.size()));
+            pl_console::addLine("number clients: " + ofToString(connectedUsers.size()));
             
+        }
+        
+        if(m.getAddress() == "/user/existing/") {
+            if(m.getNumArgs()>0) {
+                for(int i = 0 ; i < m.getNumArgs() ; i++ ) {
+                    auto a = connectedUsers.insert(m.getArgAsString(i));
+                    if(!a.second) {
+                        pl_console::addLine("user already added, ERROR");
+                    }
+                    pl_console::addLine("user added: ");
+                    pl_console::addLine("    " + m.getArgAsString(0));
+                    pl_console::addLine("number clients: " + ofToString(connectedUsers.size()));
+                }
+            }
         }
     }
 }
@@ -97,14 +71,30 @@ void ofApp::draw(){
 
 void ofApp::keyPressed(int key) {
     switch (key) {
-           
         case ' ': {
             if(connectedUsers.size()) {
                 ofxOscMessage m;
+                
+                //anything addressed with this will be forwarded to a single client
                 m.setAddress("/client_message/");
+                
+                //this is the client to whom the message should go
                 m.addStringArg(*connectedUsers.begin());
-                m.addIntArg(ofRandom(10000));
-                m.addIntArg(ofRandom(10000));
+                
+                //tell the client this is a command to add a element
+                m.addStringArg("add");
+                
+                //these are the X and Y coords for that element (normalized)
+                m.addFloatArg(ofRandom(1));
+                m.addFloatArg(ofRandom(1));
+                
+                //duration of the element
+                m.addFloatArg(ofRandom(0.5f, 5.0f));
+                
+                //delay until that element is spawned
+                m.addFloatArg(ofRandom(1.0f, 10.0f));
+                
+                //send
                 send.sendMessage(m);
             }
         }

@@ -2,7 +2,6 @@
 
 #include "ofMain.h"
 #include "ofxOsc.h"
-
 #include "pl_console.hpp"
 
 #include <unordered_set>
@@ -13,9 +12,6 @@ public:
     void update();
     void draw();
     void keyPressed(int key);
-    
-    ofTrueTypeFont font;
-    int numClientsConnected;
     
     ofxOscSender   send;
     ofxOscReceiver recv;

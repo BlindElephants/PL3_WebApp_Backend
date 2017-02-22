@@ -49,7 +49,6 @@ void pl_console::draw() {
     ofPushMatrix();
     ofTranslate(instance().fboDrawPosition);
     instance().fbo.draw(0, 0);
-    instance().font.drawString("fps: " +  ofToString(ofGetFrameRate()), instance().fbo.getWidth()-85, 12);
     ofPopMatrix();
 }
 
