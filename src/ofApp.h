@@ -15,6 +15,7 @@ public:
     
     ofxOscSender   send;
     ofxOscReceiver recv;
+    ofxOscSender toSound;
     
     unordered_set<string> connectedUsers;
 };

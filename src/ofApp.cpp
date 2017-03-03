@@ -1,11 +1,9 @@
 #include "ofApp.h"
 
+
 //--------------------------------------------------------------
 void ofApp::setup(){
-//    ofSetVerticalSync(false);
-        
     pl_console::setFbo(0, 0, 400, 150);
-
     pl_console::addLine("server initialized");
     pl_console::addLine("sending to localhost:57121");
     pl_console::addLine("receiving from node server on port:57120");
@@ -13,16 +11,21 @@ void ofApp::setup(){
     
     ofSetBackgroundColor(ofColor::black);
     
-    send.setup("localhost", 57121);
-    recv.setup(57120);
+    send.setup("localhost", 8887);
+    recv.setup(8888);
     
     ofxOscMessage m;
     m.setAddress("/user/get_all/");
     send.sendMessage(m);
+    
+//    toSound.setup("Mts-iMac.local", 57120);
+    toSound.setup("localhost", 57120);
 }
 
 //--------------------------------------------------------------
 void ofApp::update(){
+
+
     while(recv.hasWaitingMessages()) {
         ofxOscMessage m;
         recv.getNextMessage(m);
@@ -56,11 +59,20 @@ void ofApp::update(){
                         pl_console::addLine("user already added, ERROR");
                     }
                     pl_console::addLine("user added: ");
-                    pl_console::addLine("    " + m.getArgAsString(0));
+                    pl_console::addLine("    " + m.getArgAsString(i));
                     pl_console::addLine("number clients: " + ofToString(connectedUsers.size()));
                 }
             }
         }
+//        
+//        cout << m.getAddress() ;
+//        
+//        for(int i = 0 ; i < m.getNumArgs() ; i++ ) {
+//            cout << ", " << m.getArgAsString(i);
+//        }
+//        
+//        cout << endl;
+
     }
 }
 
@@ -89,15 +101,26 @@ void ofApp::keyPressed(int key) {
                 m.addFloatArg(ofRandom(1));
                 
                 //duration of the element
-                m.addFloatArg(ofRandom(0.5f, 5.0f));
+                m.addFloatArg(ofRandom(0.5f, 10.0f));
                 
                 //delay until that element is spawned
-                m.addFloatArg(ofRandom(1.0f, 10.0f));
+                m.addFloatArg(ofRandom(1.0, 5.0));
                 
                 //send
                 send.sendMessage(m);
             }
         }
+            break;
+
             
+        case 'S' : {
+            ofxOscMessage m;
+            m.setAddress("/test");
+            m.addFloatArg(ofRandom(10000));
+            m.addFloatArg(ofRandom(-1, 1));
+            m.addFloatArg(ofRandom(1));
+            m.addFloatArg(ofRandom(2));
+            toSound.sendMessage(m);
+        }
     }
 }

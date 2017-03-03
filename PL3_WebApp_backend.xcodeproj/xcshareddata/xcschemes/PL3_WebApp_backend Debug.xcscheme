@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "E4B69B5A0A3A1756003C02F2"
-               BuildableName = "PL3_WebApp_backend.app"
-               BlueprintName = "PL3_WebApp_backend"
-               ReferencedContainer = "container:PL3_WebApp_backend.xcodeproj">
+               BuildableName = "PL3_WebApp_Backend.app"
+               BlueprintName = "PL3_WebApp_Backend"
+               ReferencedContainer = "container:PL3_WebApp_Backend.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "E4B69B5A0A3A1756003C02F2"
-            BuildableName = "PL3_WebApp_backend.app"
-            BlueprintName = "PL3_WebApp_backend"
-            ReferencedContainer = "container:PL3_WebApp_backend.xcodeproj">
+            BuildableName = "PL3_WebApp_Backend.app"
+            BlueprintName = "PL3_WebApp_Backend"
+            ReferencedContainer = "container:PL3_WebApp_Backend.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </TestAction>
@@ -52,9 +52,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "E4B69B5A0A3A1756003C02F2"
-            BuildableName = "PL3_WebApp_backend.app"
-            BlueprintName = "PL3_WebApp_backend"
-            ReferencedContainer = "container:PL3_WebApp_backend.xcodeproj">
+            BuildableName = "PL3_WebApp_Backend.app"
+            BlueprintName = "PL3_WebApp_Backend"
+            ReferencedContainer = "container:PL3_WebApp_Backend.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -70,9 +70,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "E4B69B5A0A3A1756003C02F2"
-            BuildableName = "PL3_WebApp_backend.app"
-            BlueprintName = "PL3_WebApp_backend"
-            ReferencedContainer = "container:PL3_WebApp_backend.xcodeproj">
+            BuildableName = "PL3_WebApp_Backend.app"
+            BlueprintName = "PL3_WebApp_Backend"
+            ReferencedContainer = "container:PL3_WebApp_Backend.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

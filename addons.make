@@ -1,4 +1,1 @@
-ofxGui
-ofxJSON
-ofxNetwork
 ofxOsc
