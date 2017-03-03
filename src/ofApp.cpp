@@ -3,76 +3,35 @@
 
 //--------------------------------------------------------------
 void ofApp::setup(){
-    pl_console::setFbo(0, 0, 400, 150);
+    pl_console::setFbo(0, 0, 400, ofGetHeight());
     pl_console::addLine("server initialized");
     pl_console::addLine("sending to localhost:57121");
     pl_console::addLine("receiving from node server on port:57120");
     pl_console::addLine("number clients: 0");
     
     ofSetBackgroundColor(ofColor::black);
+
+    toSound.setup("Mts-iMac.local", 57120);
+//    toSound.setup("localhost", 57120);
     
-    send.setup("localhost", 8887);
-    recv.setup(8888);
+    ofxLibwebsockets::ServerOptions s = ofxLibwebsockets::defaultServerOptions();
+    s.port = 8080;
+    s.bUseSSL=false;
+    s.protocol = "echo-protocol";
+    server.setup(s);
+    server.addListener(this);
     
-    ofxOscMessage m;
-    m.setAddress("/user/get_all/");
-    send.sendMessage(m);
-    
-//    toSound.setup("Mts-iMac.local", 57120);
-    toSound.setup("localhost", 57120);
+    cout << server.getProtocol() << endl;
 }
 
 //--------------------------------------------------------------
 void ofApp::update(){
-
-
-    while(recv.hasWaitingMessages()) {
-        ofxOscMessage m;
-        recv.getNextMessage(m);
-        
-        if(m.getAddress() == "/user/add/") {
-            auto a = connectedUsers.insert(m.getArgAsString(0));
-            
-            //a.second is true if the element is added successfully
-            //false if the element already exists by the same key
-            if(!a.second) {
-                pl_console::addLine("user already added, ERROR");
-            }
-            pl_console::addLine("user added: ");
-            pl_console::addLine("    " + m.getArgAsString(0));
-            pl_console::addLine("number clients: " + ofToString(connectedUsers.size()));
-        }
-        
-        if(m.getAddress() == "/user/remove/") {
-            connectedUsers.erase(m.getArgAsString(0));
-            pl_console::addLine("user removed: ");
-            pl_console::addLine("    " + m.getArgAsString(0));
-            pl_console::addLine("number clients: " + ofToString(connectedUsers.size()));
-            
-        }
-        
-        if(m.getAddress() == "/user/existing/") {
-            if(m.getNumArgs()>0) {
-                for(int i = 0 ; i < m.getNumArgs() ; i++ ) {
-                    auto a = connectedUsers.insert(m.getArgAsString(i));
-                    if(!a.second) {
-                        pl_console::addLine("user already added, ERROR");
-                    }
-                    pl_console::addLine("user added: ");
-                    pl_console::addLine("    " + m.getArgAsString(i));
-                    pl_console::addLine("number clients: " + ofToString(connectedUsers.size()));
-                }
-            }
-        }
-//        
-//        cout << m.getAddress() ;
-//        
-//        for(int i = 0 ; i < m.getNumArgs() ; i++ ) {
-//            cout << ", " << m.getArgAsString(i);
-//        }
-//        
-//        cout << endl;
-
+    while(messages.size()>0) {
+        pl_console::addLine(messages.front());
+        messages.pop_front();
+    }
+    for(auto it = connections.begin() ; it != connections.end() ; ++it) {
+        it->second->tick();
     }
 }
 
@@ -83,39 +42,11 @@ void ofApp::draw(){
 
 void ofApp::keyPressed(int key) {
     switch (key) {
-        case ' ': {
-            if(connectedUsers.size()) {
-                ofxOscMessage m;
-                
-                //anything addressed with this will be forwarded to a single client
-                m.setAddress("/client_message/");
-                
-                //this is the client to whom the message should go
-                m.addStringArg(*connectedUsers.begin());
-                
-                //tell the client this is a command to add a element
-                m.addStringArg("add");
-                
-                //these are the X and Y coords for that element (normalized)
-                m.addFloatArg(ofRandom(1));
-                m.addFloatArg(ofRandom(1));
-                
-                //duration of the element
-                m.addFloatArg(ofRandom(0.5f, 10.0f));
-                
-                //delay until that element is spawned
-                m.addFloatArg(ofRandom(1.0, 5.0));
-                
-                //send
-                send.sendMessage(m);
-            }
-        }
-            break;
 
             
         case 'S' : {
             ofxOscMessage m;
-            m.setAddress("/test");
+            m.setAddress("/pl3_sound_server");
             m.addFloatArg(ofRandom(10000));
             m.addFloatArg(ofRandom(-1, 1));
             m.addFloatArg(ofRandom(1));
@@ -123,4 +54,67 @@ void ofApp::keyPressed(int key) {
             toSound.sendMessage(m);
         }
     }
+}
+
+
+void ofApp::onConnect(ofxLibwebsockets::Event &args) {
+    cout << "client connected" << endl;
+}
+
+void ofApp::onOpen(ofxLibwebsockets::Event &args) {
+    cout << "client connected" << endl;
+    cout << "    " << args.conn.getClientIP() << endl;
+    shared_ptr<ClientConnection> cc = make_shared<ClientConnection>(args.conn);
+    std::pair<string, shared_ptr<ClientConnection>> thisConnection(args.conn.getClientIP(), cc);
+    connections.insert(thisConnection);
+    
+//    Json::Value m;
+//    m["address"] = "/get/objects";
+//    connection.send(m.toStyledString());
+    
+    Json::Value md;
+    md["address"] = "/get/dimensions";
+    args.conn.send(md.toStyledString());
+    
+    Json::Value mo;
+    mo["address"] = "/get/objects";
+    args.conn.send(mo.toStyledString());
+}
+
+void ofApp::onClose(ofxLibwebsockets::Event &args) {
+    cout << "client closed" << endl;
+    cout << "    " << args.conn.getClientIP() << endl;
+    connections.erase(args.conn.getClientIP());
+}
+
+void ofApp::onIdle(ofxLibwebsockets::Event &args) {
+    
+}
+
+void ofApp::onMessage(ofxLibwebsockets::Event &args) {
+    messages.push_back("message recv'd from: " + args.conn.getClientIP());
+    messages.push_back("    at addr: " + args.json["address"].asString());
+    
+    auto it = connections.find(args.conn.getClientIP());
+    if(it != connections.end()) {
+        Json::Value a = args.json["args"];
+        if(args.json["address"] == "/client/object/added") {
+            it->second->addObject(ofVec2f(a[0].asFloat(), a[1].asFloat()));
+        } else if(args.json["address"] == "/client/object/moved") {
+            it->second->moveObject(ofVec2f(a[0].asFloat(), a[1].asFloat()), ofVec2f(a[2].asFloat(), a[3].asFloat()));
+        } else if(args.json["address"] == "/client/object/removed") {
+            it->second->removeObject(ofVec2f(a[0].asFloat(), a[1].asFloat()));
+        } else if(args.json["address"] == "/client/objects") {
+            it->second->clearObjects();
+            for(int i = 0 ; i < a.size() ; i ++ ) {
+                it->second->addObject(ofVec2f(a[i]["x"].asFloat(), a[i]["y"].asFloat()));
+            }
+        } else if(args.json["address"] == "/client/dimensions") {
+            it->second->setClientScreenDimensions(a[0].asFloat(), a[1].asFloat());
+        }
+    }
+}
+
+void ofApp::onBroadcast(ofxLibwebsockets::Event &args) {
+    
 }

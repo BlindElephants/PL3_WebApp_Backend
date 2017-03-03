@@ -26,7 +26,7 @@ pl_console &pl_console::instance() {
 
 void pl_console::addLine(string l) {
     instance().lines.push_back(l);
-    while(instance().lines.size()>(instance().fbo.getHeight()/10)-3) {
+    while(instance().lines.size()>(instance().fbo.getHeight()/12)-1) {
         instance().lines.erase(instance().lines.begin());
     }
     instance().fbo.begin();

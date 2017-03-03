@@ -1,1 +1,3 @@
+ofxLibwebsockets
 ofxOsc
+ofxXmlSettings
