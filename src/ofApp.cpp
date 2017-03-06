@@ -3,12 +3,14 @@
 
 //--------------------------------------------------------------
 void ofApp::setup(){
+//    ofEnableAntiAliasing();
+    ofSetWindowShape(400, 700);
+    
     pl_console::setFbo(0, 0, 400, ofGetHeight());
     pl_console::addLine("server initialized");
-    pl_console::addLine("sending to localhost:57121");
-    pl_console::addLine("receiving from node server on port:57120");
+//    pl_console::addLine("sending to localhost:57121");
+//    pl_console::addLine("receiving from node server on port:57120");
     pl_console::addLine("number clients: 0");
-    
     ofSetBackgroundColor(ofColor::black);
 
     toSound.setup("Mts-iMac.local", 57120);
@@ -20,8 +22,8 @@ void ofApp::setup(){
     s.protocol = "echo-protocol";
     server.setup(s);
     server.addListener(this);
-    
-    cout << server.getProtocol() << endl;
+    glHint(GL_LINE_SMOOTH_HINT, GL_NICEST);
+
 }
 
 //--------------------------------------------------------------
@@ -42,8 +44,6 @@ void ofApp::draw(){
 
 void ofApp::keyPressed(int key) {
     switch (key) {
-
-            
         case 'S' : {
             ofxOscMessage m;
             m.setAddress("/pl3_sound_server");
@@ -54,6 +54,7 @@ void ofApp::keyPressed(int key) {
             toSound.sendMessage(m);
         }
     }
+    
 }
 
 
@@ -64,14 +65,10 @@ void ofApp::onConnect(ofxLibwebsockets::Event &args) {
 void ofApp::onOpen(ofxLibwebsockets::Event &args) {
     cout << "client connected" << endl;
     cout << "    " << args.conn.getClientIP() << endl;
-    shared_ptr<ClientConnection> cc = make_shared<ClientConnection>(args.conn);
+    shared_ptr<ClientConnection> cc = make_shared<ClientConnection>(args.conn, toSound);
     std::pair<string, shared_ptr<ClientConnection>> thisConnection(args.conn.getClientIP(), cc);
     connections.insert(thisConnection);
-    
-//    Json::Value m;
-//    m["address"] = "/get/objects";
-//    connection.send(m.toStyledString());
-    
+
     Json::Value md;
     md["address"] = "/get/dimensions";
     args.conn.send(md.toStyledString());
@@ -79,12 +76,25 @@ void ofApp::onOpen(ofxLibwebsockets::Event &args) {
     Json::Value mo;
     mo["address"] = "/get/objects";
     args.conn.send(mo.toStyledString());
+    
+    ofxOscMessage m;
+    m.setAddress("/client/connected");
+    m.addIntArg(cc->getId());
+    toSound.sendMessage(m);
+    
+    messages.push_back("number clients: " + ofToString(connections.size()));
 }
 
 void ofApp::onClose(ofxLibwebsockets::Event &args) {
     cout << "client closed" << endl;
     cout << "    " << args.conn.getClientIP() << endl;
+    ofxOscMessage m;
+    m.setAddress("/client/disconnected");
+    m.addIntArg(connections.find(args.conn.getClientIP())->second->getId());
+    toSound.sendMessage(m);
+    
     connections.erase(args.conn.getClientIP());
+    messages.push_back("number clients: " + ofToString(connections.size()));
 }
 
 void ofApp::onIdle(ofxLibwebsockets::Event &args) {
@@ -107,7 +117,7 @@ void ofApp::onMessage(ofxLibwebsockets::Event &args) {
         } else if(args.json["address"] == "/client/objects") {
             it->second->clearObjects();
             for(int i = 0 ; i < a.size() ; i ++ ) {
-                it->second->addObject(ofVec2f(a[i]["x"].asFloat(), a[i]["y"].asFloat()));
+                it->second->addObject(ofVec2f(a[i]["x"].asFloat(), a[i]["y"].asFloat()), false);
             }
         } else if(args.json["address"] == "/client/dimensions") {
             it->second->setClientScreenDimensions(a[0].asFloat(), a[1].asFloat());

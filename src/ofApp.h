@@ -16,7 +16,7 @@ public:
     void update();
     void draw();
     void keyPressed(int key);
-
+    
     ofxOscSender toSound;
     
     unordered_set<string> connectedUsers;

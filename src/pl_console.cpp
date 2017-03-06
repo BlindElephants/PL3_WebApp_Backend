@@ -17,6 +17,7 @@ pl_console::pl_console() {
     ofNoFill();
     ofDrawRectangle(1, 1, fbo.getWidth()-2, fbo.getHeight()-2);
     fbo.end();
+    
 }
 
 pl_console &pl_console::instance() {
@@ -41,6 +42,8 @@ void pl_console::addLine(string l) {
     ofNoFill();
     ofDrawRectangle(1, 1, instance().fbo.getWidth()-2, instance().fbo.getHeight()-2);
     instance().fbo.end();
+    
+    ofEnableBlendMode(OF_BLENDMODE_ALPHA);
 }
 
 void pl_console::draw() {
@@ -53,7 +56,7 @@ void pl_console::draw() {
 }
 
 void pl_console::setFbo(float x, float y, float w, float h) {
-    instance().fbo.allocate(w, h);
+    instance().fbo.allocate(w, h, GL_RGBA, 2);
     instance().fbo.begin();
     ofClear(ofColor::black);
     ofSetColor(ofColor::white);
