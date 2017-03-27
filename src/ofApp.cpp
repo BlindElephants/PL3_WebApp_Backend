@@ -13,8 +13,8 @@ void ofApp::setup(){
     pl_console::addLine("number clients: 0");
     ofSetBackgroundColor(ofColor::black);
 
-    toSound.setup("Mts-iMac.local", 57120);
-//    toSound.setup("localhost", 57120);
+//    toSound.setup("Mts-iMac.local", 57120);
+    toSound.setup("localhost", 57120);
     
     ofxLibwebsockets::ServerOptions s = ofxLibwebsockets::defaultServerOptions();
     s.port = 8080;
@@ -22,8 +22,6 @@ void ofApp::setup(){
     s.protocol = "echo-protocol";
     server.setup(s);
     server.addListener(this);
-    glHint(GL_LINE_SMOOTH_HINT, GL_NICEST);
-
 }
 
 //--------------------------------------------------------------
@@ -32,7 +30,7 @@ void ofApp::update(){
         pl_console::addLine(messages.front());
         messages.pop_front();
     }
-    for(auto it = connections.begin() ; it != connections.end() ; ++it) {
+    for(auto it=connections.begin(); it!=connections.end(); ++it) {
         it->second->tick();
     }
 }
@@ -45,16 +43,23 @@ void ofApp::draw(){
 void ofApp::keyPressed(int key) {
     switch (key) {
         case 'S' : {
-            ofxOscMessage m;
-            m.setAddress("/pl3_sound_server");
-            m.addFloatArg(ofRandom(10000));
-            m.addFloatArg(ofRandom(-1, 1));
-            m.addFloatArg(ofRandom(1));
-            m.addFloatArg(ofRandom(2));
-            toSound.sendMessage(m);
+//            ofxOscMessage m;
+//            m.setAddress("/test");
+//            m.addFloatArg(ofRandom(10000));
+//            m.addFloatArg(ofRandom(-1, 1));
+//            m.addFloatArg(ofRandom(1));
+//            m.addFloatArg(ofRandom(2));
+//            toSound.sendMessage(m);
+//            cout << "msg sent to sound" << endl;
         }
     }
     
+}
+
+void ofApp::exit() {
+    ofxOscMessage m;
+    m.setAddress("/server/closed");
+    toSound.sendMessage(m);
 }
 
 
@@ -116,9 +121,11 @@ void ofApp::onMessage(ofxLibwebsockets::Event &args) {
             it->second->removeObject(ofVec2f(a[0].asFloat(), a[1].asFloat()));
         } else if(args.json["address"] == "/client/objects") {
             it->second->clearObjects();
+            vector<ofVec2f>allObjects;
             for(int i = 0 ; i < a.size() ; i ++ ) {
-                it->second->addObject(ofVec2f(a[i]["x"].asFloat(), a[i]["y"].asFloat()), false);
+                allObjects.push_back(ofVec2f(a[i]["x"].asFloat(), a[i]["y"].asFloat()));
             }
+            it->second->setObjects(allObjects);
         } else if(args.json["address"] == "/client/dimensions") {
             it->second->setClientScreenDimensions(a[0].asFloat(), a[1].asFloat());
         }

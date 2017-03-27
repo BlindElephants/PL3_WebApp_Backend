@@ -16,7 +16,6 @@
 
 class ClientConnection {
 public:
-    
     static int ClientID;
     
     void addObject(ofVec2f _position, bool _user=true);
@@ -26,6 +25,7 @@ public:
     void removeObject(ofVec2f _position);
     void clearObjects();
     
+    void setObjects(vector<ofVec2f> _objects);
     
     void makeNewGoal(int numGoalPoints=10);
     void setClientScreenDimensions(float w, float h);
@@ -38,8 +38,8 @@ public:
     int getId();
     
     ClientConnection(ofxLibwebsockets::Connection& _connection, ofxOscSender& _toSoundRef);
-private:
     
+private:
     void normalizeCoords(ofVec2f &position);
     void convertToScreenCoords(ofVec2f &position);
     
@@ -50,7 +50,7 @@ private:
     
     ofVec2f ClientScreenDimensions;
     
-    vector < ofVec2f > goal;
+    vector < ofVec2f > goal[3];
     
     ofxOscSender& toSoundRef;
     

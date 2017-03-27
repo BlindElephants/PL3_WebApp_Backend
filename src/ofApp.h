@@ -11,11 +11,13 @@
 #include "ClientConnection.hpp"
 
 class ofApp : public ofBaseApp{
+    
 public:
     void setup();
     void update();
     void draw();
     void keyPressed(int key);
+    void exit();
     
     ofxOscSender toSound;
     
@@ -29,7 +31,7 @@ public:
     void onMessage( ofxLibwebsockets::Event& args );
     void onBroadcast( ofxLibwebsockets::Event& args );
     
-    unordered_map < string , shared_ptr<ClientConnection> > connections;
+    unordered_map<string,shared_ptr<ClientConnection>> connections;
     
-    deque < string > messages;
+    deque<string> messages;
 };

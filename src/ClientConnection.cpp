@@ -53,6 +53,7 @@ void ClientConnection::addObject(ofVec2f _position, bool _user) {
     if(_user) {
         ofxOscMessage sm;
         sm.setAddress("/client/object_added");
+        sm.addIntArg(myId);
         sm.addFloatArg(_position.x);
         sm.addFloatArg(_position.y);
         toSoundRef.sendMessage(sm);
@@ -64,6 +65,7 @@ void ClientConnection::moveObject(int _index, ofVec2f _newPosition) {
     
     ofxOscMessage sm;
     sm.setAddress("/client/object_moved");
+    sm.addIntArg(myId);
     sm.addFloatArg(objects[_index].x);
     sm.addFloatArg(objects[_index].y);
     sm.addFloatArg(_newPosition.x);
@@ -83,6 +85,7 @@ void ClientConnection::moveObject(ofVec2f _oldPosition, ofVec2f _newPosition) {
             o.set(_newPosition);
             ofxOscMessage sm;
             sm.setAddress("/client/object_moved");
+            sm.addIntArg(myId);
             sm.addFloatArg(_oldPosition.x);
             sm.addFloatArg(_oldPosition.y);
             sm.addFloatArg(_newPosition.x);
@@ -96,6 +99,7 @@ void ClientConnection::removeObject(int _index) {
     
     ofxOscMessage sm;
     sm.setAddress("/client/object_removed");
+    sm.addIntArg(myId);
     sm.addFloatArg(objects[_index].x);
     sm.addFloatArg(objects[_index].y);
     toSoundRef.sendMessage(sm);
@@ -120,6 +124,7 @@ void ClientConnection::removeObject(ofVec2f _position) {
         objects.erase(objects.begin()+ti);
         ofxOscMessage sm;
         sm.setAddress("/client/object_removed");
+        sm.addIntArg(myId);
         sm.addFloatArg(_position.x);
         sm.addFloatArg(_position.y);
         toSoundRef.sendMessage(sm);
@@ -131,15 +136,19 @@ void ClientConnection::clearObjects() {
 }
 
 void ClientConnection::makeNewGoal(int numGoalPoints) {
-    goal.clear();
+    goal[0].clear();
+    goal[1].clear();
+    goal[2].clear();
     
     ofxOscMessage sm;
     sm.setAddress("/client/goal_generated");
+    sm.addIntArg(myId);
+    sm.addIntArg(numGoalPoints);
     
     for(int i = 0 ; i < numGoalPoints ; i ++ ) {
-        goal.push_back(ofVec2f(ofRandom(1), ofRandom(1)));
-        sm.addFloatArg(goal.back().x);
-        sm.addFloatArg(goal.back().y);
+        goal[0].push_back(ofVec2f(ofRandom(1), ofRandom(1)));
+        sm.addFloatArg(goal[0].back().x);
+        sm.addFloatArg(goal[0].back().y);
     }
     
     toSoundRef.sendMessage(sm);
@@ -177,6 +186,7 @@ void ClientConnection::sendAddInstr(ofVec2f _goalPosition, float _duration, floa
     
     ofxOscMessage sm;
     sm.setAddress("/instruction/add");
+    sm.addIntArg(myId);
     sm.addFloatArg(_g.x);
     sm.addFloatArg(_g.y);
     sm.addFloatArg(_duration);
@@ -201,6 +211,7 @@ void ClientConnection::sendRemoveInstr(ofVec2f _goalPosition, float _duration, f
     
     ofxOscMessage sm;
     sm.setAddress("/instruction/remove");
+    sm.addIntArg(myId);
     sm.addFloatArg(_g.x);
     sm.addFloatArg(_g.y);
     sm.addFloatArg(_duration);
@@ -229,6 +240,7 @@ void ClientConnection::sendMoveInstr(ofVec2f _startPosition, ofVec2f _endPositio
     
     ofxOscMessage sm;
     sm.setAddress("/instruction/move");
+    sm.addIntArg(myId);
     sm.addFloatArg(_s.x);
     sm.addFloatArg(_s.y);
     sm.addFloatArg(_e.x);
@@ -238,4 +250,29 @@ void ClientConnection::sendMoveInstr(ofVec2f _startPosition, ofVec2f _endPositio
     toSoundRef.sendMessage(sm);
 }
 
+void ClientConnection::setObjects(vector<ofVec2f> _objects) {
+    objects.clear();
+    
+    if(_objects.size()>0) {
+        for(int i=0; i<_objects.size(); i++) {
+            normalizeCoords(_objects[i]);
+        }
+    }
+    
+    objects=_objects;
+    
+    ofxOscMessage sm;
+    sm.setAddress("/client/allobjects");
+    sm.addIntArg(myId);
+    sm.addIntArg(objects.size());
+    if(objects.size()>0) {
+        for(int i=0; i<objects.size(); i++ ) {
+            sm.addFloatArg(objects[i].x);
+            sm.addFloatArg(objects[i].y);
+        }
+    }
+    toSoundRef.sendMessage(sm);
+}
+
 int ClientConnection::getId() { return myId; }
+
