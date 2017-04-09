@@ -1,0 +1,42 @@
+//
+//  PL_IB_A.cpp
+//  PL3_WebApp_Backend
+//
+//  Created by Jeremy Stewart on 4/9/17.
+//
+//
+
+#include "PL_IB_A.hpp"
+
+PL_IB_A::PL_IB_A(shared_ptr<PL_GoalManager> _gm, const int &_myId, ofxLibwebsockets::Connection &_connection, vector<ofVec2f> &_objects)
+:
+PL_InstructionBehavior(ofRandom(5, 20), PL_InstructionBehaviorType::PLIB_A, _gm, _myId, _connection, _objects)
+{
+    gm->makeNewGoalSet_Random(5);
+    followType=PL_InstructionBehaviorType::PLIB_A;
+}
+
+float PL_IB_A::getNextInstruction() {
+    float timeTillNextInstruction=0.0;
+    vector<ofVec2f> tempObjects = objects;
+    sortObjectsGoals(tempObjects);
+    if(gm->getGoals().size()) {
+        if(tempObjects.size()) {
+            float du=ofRandom(3.0, 7.0);
+            float de=ofRandom(3.0, 15.0);
+            if((du+de)>timeTillNextInstruction) timeTillNextInstruction=du+de;
+            sendMoveInstr(tempObjects[ofRandom(tempObjects.size())], gm->getGoals()[ofRandom(gm->getGoals().size())]->getPosition(), du, de);
+        } else {
+            float du=ofRandom(3.0, 7.0);
+            float de=ofRandom(3.0, 15.0);
+            if((du+de)>timeTillNextInstruction) timeTillNextInstruction=du+de;
+            sendAddInstr(gm->getGoals()[ofRandom(gm->getGoals().size())]->getPosition(), du, de);
+        }
+    } else if(tempObjects.size()) {
+        float du=ofRandom(3.0, 7.0);
+        float de=ofRandom(3.0, 15.0);
+        if((du+de)>timeTillNextInstruction) timeTillNextInstruction=du+de;
+
+        sendRemoveInstr(tempObjects[tempObjects.size()], du, de);
+    }    
+}

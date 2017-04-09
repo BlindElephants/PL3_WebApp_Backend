@@ -12,7 +12,11 @@
 #include "ofMain.h"
 #include "ofxLibwebsockets.h"
 #include "ofxOsc.h"
+
 #include "pl_console.hpp"
+
+#include "PL_GoalManager.hpp"
+#include "PL_InstructionManager.hpp"
 
 class ClientConnection {
 public:
@@ -27,14 +31,9 @@ public:
     
     void setObjects(vector<ofVec2f> _objects);
     
-    void makeNewGoal(int numGoalPoints=10);
     void setClientScreenDimensions(float w, float h);
     void tick();
-    
-    void sendAddInstr(ofVec2f _goalPosition, float _duration=4.0f, float _delay=0.0f);
-    void sendRemoveInstr(ofVec2f _goalPosition, float _duration=4.0f, float _delay=0.0f);
-    void sendMoveInstr(ofVec2f _startPosition, ofVec2f _endPosition, float _duration=4.0f, float _delay=0.0f);
-    
+
     int getId();
     
     ClientConnection(ofxLibwebsockets::Connection& _connection, ofxOscSender& _toSoundRef);
@@ -45,14 +44,15 @@ private:
     
     ofxLibwebsockets::Connection& connection;
     float age;
-    vector < ofVec2f > objects;
+    vector <ofVec2f> objects;
     float timeSinceLastPing;
     
     ofVec2f ClientScreenDimensions;
-    
-    vector < ofVec2f > goal[3];
-    
+        
     ofxOscSender& toSoundRef;
+    
+    shared_ptr<PL_GoalManager> gm;
+    shared_ptr<PL_InstructionManager> im;
     
     const int myId;
 };

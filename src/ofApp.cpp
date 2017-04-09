@@ -53,7 +53,6 @@ void ofApp::keyPressed(int key) {
 //            cout << "msg sent to sound" << endl;
         }
     }
-    
 }
 
 void ofApp::exit() {
@@ -87,7 +86,7 @@ void ofApp::onOpen(ofxLibwebsockets::Event &args) {
     m.addIntArg(cc->getId());
     toSound.sendMessage(m);
     
-    messages.push_back("number clients: " + ofToString(connections.size()));
+    messages.push_back("number clients: " + ofToString(connections.size()));    
 }
 
 void ofApp::onClose(ofxLibwebsockets::Event &args) {
@@ -95,11 +94,17 @@ void ofApp::onClose(ofxLibwebsockets::Event &args) {
     cout << "    " << args.conn.getClientIP() << endl;
     ofxOscMessage m;
     m.setAddress("/client/disconnected");
-    m.addIntArg(connections.find(args.conn.getClientIP())->second->getId());
-    toSound.sendMessage(m);
+    auto c = connections.find(args.conn.getClientIP());
+    if(c == connections.end()) {
+        messages.push_back("ERROR: trying to remove connection that doesn't exist");
+    } else {
+        m.addIntArg(c->second->getId());
+        toSound.sendMessage(m);
+        
+        connections.erase(args.conn.getClientIP());
+        messages.push_back("number clients: " + ofToString(connections.size()));
+    }
     
-    connections.erase(args.conn.getClientIP());
-    messages.push_back("number clients: " + ofToString(connections.size()));
 }
 
 void ofApp::onIdle(ofxLibwebsockets::Event &args) {
@@ -107,8 +112,10 @@ void ofApp::onIdle(ofxLibwebsockets::Event &args) {
 }
 
 void ofApp::onMessage(ofxLibwebsockets::Event &args) {
-    messages.push_back("message recv'd from: " + args.conn.getClientIP());
-    messages.push_back("    at addr: " + args.json["address"].asString());
+    if(args.json["address"] != "/client/objects") {
+        messages.push_back("message recv'd from: " + args.conn.getClientIP());
+        messages.push_back("    at addr: " + args.json["address"].asString());
+    }
     
     auto it = connections.find(args.conn.getClientIP());
     if(it != connections.end()) {

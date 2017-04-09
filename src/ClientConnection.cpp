@@ -18,33 +18,20 @@ age(0.0),
 timeSinceLastPing(0.0),
 myId(ClientID++)
 {
-
+    gm=make_shared<PL_GoalManager>(ClientScreenDimensions);
+    im=make_shared<PL_InstructionManager>(gm, myId, connection, objects);
 }
 
 void ClientConnection::tick() {
     age += ofGetLastFrameTime();
     timeSinceLastPing+= ofGetLastFrameTime();
-    
     if(timeSinceLastPing >= 2.5f) {
         Json::Value m;
         m["address"] = "/get/objects";
         connection.send(m.toStyledString());
         timeSinceLastPing = 0.0f;
-        
-        int t = ofRandom(3);
-        
-        if(t==0) {
-            if(objects.size()) {
-                sendRemoveInstr(objects[ofRandom(objects.size())]);
-            }
-        } else if(t==1) {
-            if(objects.size()) {
-                sendMoveInstr(objects[ofRandom(objects.size())], ofVec2f(ofRandom(0, 1), ofRandom(0, 1)));
-            }
-        } else if(t==2) {
-            sendAddInstr(ofVec2f(ofRandom(0, 1), ofRandom(0, 1)), ofRandom(5.0), ofRandom(5.0));
-        }
     }
+    im->update();
 }
 
 void ClientConnection::addObject(ofVec2f _position, bool _user) {
@@ -131,28 +118,7 @@ void ClientConnection::removeObject(ofVec2f _position) {
     }
 }
 
-void ClientConnection::clearObjects() {
-    objects.clear();
-}
-
-void ClientConnection::makeNewGoal(int numGoalPoints) {
-    goal[0].clear();
-    goal[1].clear();
-    goal[2].clear();
-    
-    ofxOscMessage sm;
-    sm.setAddress("/client/goal_generated");
-    sm.addIntArg(myId);
-    sm.addIntArg(numGoalPoints);
-    
-    for(int i = 0 ; i < numGoalPoints ; i ++ ) {
-        goal[0].push_back(ofVec2f(ofRandom(1), ofRandom(1)));
-        sm.addFloatArg(goal[0].back().x);
-        sm.addFloatArg(goal[0].back().y);
-    }
-    
-    toSoundRef.sendMessage(sm);
-}
+void ClientConnection::clearObjects() {objects.clear();}
 
 void ClientConnection::setClientScreenDimensions(float w, float h) {
     ClientScreenDimensions.set(w, h);
@@ -169,87 +135,6 @@ void ClientConnection::convertToScreenCoords(ofVec2f &position) {
     position *= ClientScreenDimensions;
     position -= (ClientScreenDimensions*0.5);
 }
-
-void ClientConnection::sendAddInstr(ofVec2f _goalPosition, float _duration, float _delay) {
-    Json::Value m;
-    
-    ofVec2f _g = _goalPosition;
-    
-    convertToScreenCoords(_goalPosition);
-    m["address"] = "/instruction/add";
-    m["args"].append(_goalPosition.x);
-    m["args"].append(_goalPosition.y);
-    m["args"].append(_duration);
-    m["args"].append(_delay);
-    connection.send(m.toStyledString());
-    pl_console::addLine("add instruction sent");
-    
-    ofxOscMessage sm;
-    sm.setAddress("/instruction/add");
-    sm.addIntArg(myId);
-    sm.addFloatArg(_g.x);
-    sm.addFloatArg(_g.y);
-    sm.addFloatArg(_duration);
-    sm.addFloatArg(_delay);
-    toSoundRef.sendMessage(sm);
-}
-
-void ClientConnection::sendRemoveInstr(ofVec2f _goalPosition, float _duration, float _delay) {
-    Json::Value m;
-    
-    ofVec2f _g = _goalPosition;
-    
-    convertToScreenCoords(_goalPosition);
-    
-    m["address"] = "/instruction/remove";
-    m["args"].append(_goalPosition.x);
-    m["args"].append(_goalPosition.y);
-    m["args"].append(_duration);
-    m["args"].append(_delay);
-    connection.send(m.toStyledString());
-    pl_console::addLine("remove instruction sent");
-    
-    ofxOscMessage sm;
-    sm.setAddress("/instruction/remove");
-    sm.addIntArg(myId);
-    sm.addFloatArg(_g.x);
-    sm.addFloatArg(_g.y);
-    sm.addFloatArg(_duration);
-    sm.addFloatArg(_delay);
-    toSoundRef.sendMessage(sm);
-}
-
-void ClientConnection::sendMoveInstr(ofVec2f _startPosition, ofVec2f _endPosition, float _duration, float _delay) {
-    Json::Value m;
-    
-    ofVec2f _s = _startPosition;
-    ofVec2f _e = _endPosition;
-    
-    convertToScreenCoords(_startPosition);
-    convertToScreenCoords(_endPosition);
-    
-    m["address"] = "/instruction/move";
-    m["args"].append(_startPosition.x);
-    m["args"].append(_startPosition.y);
-    m["args"].append(_endPosition.x);
-    m["args"].append(_endPosition.y);
-    m["args"].append(_duration);
-    m["args"].append(_delay);
-    connection.send(m.toStyledString());
-    pl_console::addLine("move instruction sent");
-    
-    ofxOscMessage sm;
-    sm.setAddress("/instruction/move");
-    sm.addIntArg(myId);
-    sm.addFloatArg(_s.x);
-    sm.addFloatArg(_s.y);
-    sm.addFloatArg(_e.x);
-    sm.addFloatArg(_e.y);
-    sm.addFloatArg(_duration);
-    sm.addFloatArg(_delay);
-    toSoundRef.sendMessage(sm);
-}
-
 void ClientConnection::setObjects(vector<ofVec2f> _objects) {
     objects.clear();
     
