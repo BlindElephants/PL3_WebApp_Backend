@@ -7,6 +7,7 @@
 //
 
 #include "PL_IB_A.hpp"
+#include "ClientUtilities.hpp"
 
 PL_IB_A::PL_IB_A(shared_ptr<PL_GoalManager> _gm, const int &_myId, ofxLibwebsockets::Connection &_connection, vector<ofVec2f> &_objects)
 :
@@ -17,8 +18,16 @@ PL_InstructionBehavior(ofRandom(5, 20), PL_InstructionBehaviorType::PLIB_A, _gm,
 }
 
 float PL_IB_A::getNextInstruction() {
-    float timeTillNextInstruction=0.0;
-    vector<ofVec2f> tempObjects = objects;
+    timeTillNextInstruction=0.0;
+    
+    vector<ofVec2f> tempObjects;
+    
+    if(objects.size()) {
+        for(int i = 0 ; i < objects.size() ; i ++ ) {
+            tempObjects.push_back(ClientUtilities::normalToScreenCoords(objects[i], gm->getDeviceScreenDimensions()));
+        }
+    }
+    
     sortObjectsGoals(tempObjects);
     if(gm->getGoals().size()) {
         if(tempObjects.size()) {
@@ -38,5 +47,6 @@ float PL_IB_A::getNextInstruction() {
         if((du+de)>timeTillNextInstruction) timeTillNextInstruction=du+de;
 
         sendRemoveInstr(tempObjects[tempObjects.size()], du, de);
-    }    
+    }
+    return timeTillNextInstruction;
 }

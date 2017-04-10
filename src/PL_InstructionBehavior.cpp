@@ -40,7 +40,7 @@ void PL_InstructionBehavior::update() {
 
 void PL_InstructionBehavior::sortObjectsGoals(vector<ofVec2f> tempObjects) {
     float d2=gm->getDeviceObjectSize();
-    d2*=0.5;
+//    d2*=0.5;
     d2*=d2;
     
     if(gm->getCompletedGoals().size() && tempObjects.size()) {

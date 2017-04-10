@@ -16,7 +16,7 @@ objects(_objects),
 myId(_myId),
 connection(_connection)
 {
-    ib = make_shared<PL_IB_A>(gm, myId, connection, objects);
+    ib = make_shared<PL_IB_WAIT>(gm, myId, connection, objects);
 }
 
 void PL_InstructionManager::update() {
@@ -26,6 +26,11 @@ void PL_InstructionManager::update() {
         pl_console::addLine("behavior finished");
         PL_InstructionBehaviorType nextType = ib->getFollowType();
         switch(nextType) {
+            case PLIB_WAIT:
+                ib = make_shared<PL_IB_WAIT>(gm, myId, connection, objects);
+                pl_console::addLine("[" + ofToString(myId) + "]: PL_IB_WAIT created");
+                break;
+                
             case PLIB_A:
                 ib = make_shared<PL_IB_A>(gm, myId, connection, objects);
                 pl_console::addLine("[" + ofToString(myId) + "]: PL_IB_A created");

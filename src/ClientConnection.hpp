@@ -31,7 +31,7 @@ public:
     
     void setObjects(vector<ofVec2f> _objects);
     
-    void setClientScreenDimensions(float w, float h);
+    void setClientScreenDimensions(float w, float h, float objectSize);
     void tick();
 
     int getId();
@@ -48,7 +48,9 @@ private:
     float timeSinceLastPing;
     
     ofVec2f ClientScreenDimensions;
-        
+    float   ClientObjectSize;
+    
+    
     ofxOscSender& toSoundRef;
     
     shared_ptr<PL_GoalManager> gm;

@@ -18,7 +18,7 @@ age(0.0),
 timeSinceLastPing(0.0),
 myId(ClientID++)
 {
-    gm=make_shared<PL_GoalManager>(ClientScreenDimensions);
+    gm=make_shared<PL_GoalManager>(ClientScreenDimensions, ClientObjectSize);
     im=make_shared<PL_InstructionManager>(gm, myId, connection, objects);
 }
 
@@ -120,8 +120,9 @@ void ClientConnection::removeObject(ofVec2f _position) {
 
 void ClientConnection::clearObjects() {objects.clear();}
 
-void ClientConnection::setClientScreenDimensions(float w, float h) {
+void ClientConnection::setClientScreenDimensions(float w, float h, float objectSize) {
     ClientScreenDimensions.set(w, h);
+    ClientObjectSize=objectSize;
     cout << "Screen Dimensions Set: " << w << ", " << h << endl;
 }
 

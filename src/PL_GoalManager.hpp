@@ -16,18 +16,18 @@ class PL_GoalManager {
     static const int maxNumberOfGoals;
 public:
     void makeNewGoalSet_Random(int numberGoals);
-    void setDeviceObjectSize(float _size) {deviceObjectSize=_size;}
     
+    ofVec2f &getDeviceScreenDimensions() {return deviceScreenDimensions;}
     float &getDeviceObjectSize() {return deviceObjectSize;}
     
     vector<shared_ptr<PL_Goal>> & getGoals() {return goals;}
     vector<shared_ptr<PL_Goal>> & getCompletedGoals() {return completedGoals;}
-    PL_GoalManager(ofVec2f &_deviceScreenDimensions) : deviceScreenDimensions(_deviceScreenDimensions) {};
+    PL_GoalManager(ofVec2f &_deviceScreenDimensions, float &_deviceObjectSize) : deviceScreenDimensions(_deviceScreenDimensions), deviceObjectSize(_deviceObjectSize) {};
 private:
     bool checkForCollisions(ofVec2f &p);
     
     ofVec2f &deviceScreenDimensions;
-    float deviceObjectSize;
+    float &deviceObjectSize;
     
     vector<shared_ptr<PL_Goal>> goals;
     vector<shared_ptr<PL_Goal>> completedGoals;

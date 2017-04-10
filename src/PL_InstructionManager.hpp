@@ -13,6 +13,7 @@
 #include "ofxLibwebsockets.h"
 #include "ofxOsc.h"
 
+#include "PL_IB_WAIT.hpp"
 #include "PL_IB_A.hpp"
 #include "PL_InstructionBehavior.hpp"
 

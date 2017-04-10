@@ -134,7 +134,7 @@ void ofApp::onMessage(ofxLibwebsockets::Event &args) {
             }
             it->second->setObjects(allObjects);
         } else if(args.json["address"] == "/client/dimensions") {
-            it->second->setClientScreenDimensions(a[0].asFloat(), a[1].asFloat());
+            it->second->setClientScreenDimensions(a[0].asFloat(), a[1].asFloat(), a[2].asFloat());
         }
     }
 }

@@ -17,6 +17,8 @@
 		5C1155411E9AA7C200E3B3A0 /* PL_GoalManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5C11553F1E9AA7C200E3B3A0 /* PL_GoalManager.cpp */; };
 		5C1155441E9AA7DA00E3B3A0 /* PL_Goal.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5C1155421E9AA7DA00E3B3A0 /* PL_Goal.cpp */; };
 		5C11554B1E9ADBA100E3B3A0 /* PL_IB_A.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5C1155491E9ADBA100E3B3A0 /* PL_IB_A.cpp */; };
+		5C11554E1E9AF32D00E3B3A0 /* ClientUtilities.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5C11554C1E9AF32D00E3B3A0 /* ClientUtilities.cpp */; };
+		5C2C6BEB1E9C3EDC00518ADF /* PL_IB_WAIT.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5C2C6BE91E9C3EDC00518ADF /* PL_IB_WAIT.cpp */; };
 		5F55E7FF0D2EE1E3D6E345E2 /* ClientConnection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B918175D91D54CC738A7CD95 /* ClientConnection.cpp */; };
 		62545D179C94265CA1389D4A /* OscOutboundPacketStream.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 63A47AC60FFAFC3BF093EC0F /* OscOutboundPacketStream.cpp */; };
 		63B57AC5BF4EF088491E0317 /* ofxXmlSettings.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 50DF87D612C5AAE17AAFA6C0 /* ofxXmlSettings.cpp */; };
@@ -104,6 +106,10 @@
 		5C1155431E9AA7DA00E3B3A0 /* PL_Goal.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = PL_Goal.hpp; sourceTree = "<group>"; };
 		5C1155491E9ADBA100E3B3A0 /* PL_IB_A.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PL_IB_A.cpp; sourceTree = "<group>"; };
 		5C11554A1E9ADBA100E3B3A0 /* PL_IB_A.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = PL_IB_A.hpp; sourceTree = "<group>"; };
+		5C11554C1E9AF32D00E3B3A0 /* ClientUtilities.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ClientUtilities.cpp; sourceTree = "<group>"; };
+		5C11554D1E9AF32D00E3B3A0 /* ClientUtilities.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ClientUtilities.hpp; sourceTree = "<group>"; };
+		5C2C6BE91E9C3EDC00518ADF /* PL_IB_WAIT.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PL_IB_WAIT.cpp; sourceTree = "<group>"; };
+		5C2C6BEA1E9C3EDC00518ADF /* PL_IB_WAIT.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = PL_IB_WAIT.hpp; sourceTree = "<group>"; };
 		5D95092D59E7A34C9DB7823E /* Server.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = Server.cpp; path = ../../../addons/ofxLibwebsockets/libs/ofxLibwebsockets/src/Server.cpp; sourceTree = SOURCE_ROOT; };
 		63A47AC60FFAFC3BF093EC0F /* OscOutboundPacketStream.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = OscOutboundPacketStream.cpp; path = ../../../addons/ofxOsc/libs/oscpack/src/osc/OscOutboundPacketStream.cpp; sourceTree = SOURCE_ROOT; };
 		65EEFA3DA3526E9CDD9C21F9 /* ofxOscBundle.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxOscBundle.cpp; path = ../../../addons/ofxOsc/src/ofxOscBundle.cpp; sourceTree = SOURCE_ROOT; };
@@ -304,8 +310,19 @@
 				5C11553E1E9A9C7C00E3B3A0 /* PL_InstructionBehaviorType.h */,
 				5C1155491E9ADBA100E3B3A0 /* PL_IB_A.cpp */,
 				5C11554A1E9ADBA100E3B3A0 /* PL_IB_A.hpp */,
+				5C2C6BE91E9C3EDC00518ADF /* PL_IB_WAIT.cpp */,
+				5C2C6BEA1E9C3EDC00518ADF /* PL_IB_WAIT.hpp */,
 			);
 			name = Behaviors;
+			sourceTree = "<group>";
+		};
+		5C11554F1E9AF45700E3B3A0 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				5C11554C1E9AF32D00E3B3A0 /* ClientUtilities.cpp */,
+				5C11554D1E9AF32D00E3B3A0 /* ClientUtilities.hpp */,
+			);
+			name = Utils;
 			sourceTree = "<group>";
 		};
 		641362CA659FAFEE4E81001B /* posix */ = {
@@ -467,6 +484,7 @@
 				6F6AC259974E24CD80F857C2 /* pl_console.hpp */,
 				5C1155461E9AA9E600E3B3A0 /* PL_InstructionBehaviors */,
 				5C1155451E9AA9DD00E3B3A0 /* PL_Goals */,
+				5C11554F1E9AF45700E3B3A0 /* Utils */,
 			);
 			path = src;
 			sourceTree = SOURCE_ROOT;
@@ -601,6 +619,7 @@
 				86135253DC7909CA8590E157 /* Protocol.cpp in Sources */,
 				6D73A566CFEC0B462FE6E43C /* Reactor.cpp in Sources */,
 				5C1155391E9A9C3900E3B3A0 /* PL_InstructionManager.cpp in Sources */,
+				5C2C6BEB1E9C3EDC00518ADF /* PL_IB_WAIT.cpp in Sources */,
 				F3AD9E2A2E56B6AF32A0BDAF /* Server.cpp in Sources */,
 				CCD326ED8E01272042317DD2 /* Util.cpp in Sources */,
 				72A929D3561B8232A182ABFC /* ofxOscBundle.cpp in Sources */,
@@ -609,6 +628,7 @@
 				4ADB88E2FB52E76A471065DE /* ofxOscParameterSync.cpp in Sources */,
 				5C11554B1E9ADBA100E3B3A0 /* PL_IB_A.cpp in Sources */,
 				5C11553C1E9A9C4F00E3B3A0 /* PL_InstructionBehavior.cpp in Sources */,
+				5C11554E1E9AF32D00E3B3A0 /* ClientUtilities.cpp in Sources */,
 				640279EE111671BD026CB013 /* ofxOscReceiver.cpp in Sources */,
 				8F5205AEF8861EF234F0651A /* ofxOscSender.cpp in Sources */,
 				ADE367465D2A8EBAD4C7A8D9 /* IpEndpointName.cpp in Sources */,
