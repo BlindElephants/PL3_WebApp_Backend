@@ -14,7 +14,9 @@ void ofApp::setup(){
     ofSetBackgroundColor(ofColor::black);
 
 //    toSound.setup("Mts-iMac.local", 57120);
-    toSound.setup("localhost", 57120);
+//    toSound.setup("localhost", 57120);
+    
+    PL_SoundSender::setup("localhost", 57120);
     
     ofxLibwebsockets::ServerOptions s = ofxLibwebsockets::defaultServerOptions();
     s.port = 8080;
@@ -58,7 +60,7 @@ void ofApp::keyPressed(int key) {
 void ofApp::exit() {
     ofxOscMessage m;
     m.setAddress("/server/closed");
-    toSound.sendMessage(m);
+    PL_SoundSender::sendMessage(m);
 }
 
 
@@ -69,7 +71,7 @@ void ofApp::onConnect(ofxLibwebsockets::Event &args) {
 void ofApp::onOpen(ofxLibwebsockets::Event &args) {
     cout << "client connected" << endl;
     cout << "    " << args.conn.getClientIP() << endl;
-    shared_ptr<ClientConnection> cc = make_shared<ClientConnection>(args.conn, toSound);
+    shared_ptr<ClientConnection> cc = make_shared<ClientConnection>(args.conn);
     std::pair<string, shared_ptr<ClientConnection>> thisConnection(args.conn.getClientIP(), cc);
     connections.insert(thisConnection);
 
@@ -84,7 +86,7 @@ void ofApp::onOpen(ofxLibwebsockets::Event &args) {
     ofxOscMessage m;
     m.setAddress("/client/connected");
     m.addIntArg(cc->getId());
-    toSound.sendMessage(m);
+    PL_SoundSender::sendMessage(m);
     
     messages.push_back("number clients: " + ofToString(connections.size()));    
 }
@@ -99,7 +101,7 @@ void ofApp::onClose(ofxLibwebsockets::Event &args) {
         messages.push_back("ERROR: trying to remove connection that doesn't exist");
     } else {
         m.addIntArg(c->second->getId());
-        toSound.sendMessage(m);
+        PL_SoundSender::sendMessage(m);
         
         connections.erase(args.conn.getClientIP());
         messages.push_back("number clients: " + ofToString(connections.size()));

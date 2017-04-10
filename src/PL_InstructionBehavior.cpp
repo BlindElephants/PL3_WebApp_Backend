@@ -7,6 +7,7 @@
 //
 
 #include "PL_InstructionBehavior.hpp"
+#include "PL_SoundSender.hpp"
 
 PL_InstructionBehavior::PL_InstructionBehavior(float _timeTillFirstInstruction, PL_InstructionBehaviorType _myType, shared_ptr<PL_GoalManager> _gm, const int &_myId, ofxLibwebsockets::Connection &_connection, vector<ofVec2f> &_objects)
 :
@@ -72,6 +73,7 @@ void PL_InstructionBehavior::sendAddInstr(ofVec2f _goalPosition, float _duration
 //    ofVec2f _g = _goalPosition;
 //    convertToScreenCoords(_goalPosition);
     m["address"] = "/instruction/add";
+    m["args"].append(myId);
     m["args"].append(_goalPosition.x);
     m["args"].append(_goalPosition.y);
     m["args"].append(_duration);
@@ -102,14 +104,14 @@ void PL_InstructionBehavior::sendRemoveInstr(ofVec2f _goalPosition, float _durat
     connection.send(m.toStyledString());
     pl_console::addLine("[" + ofToString(myId) + "]: remove instruction sent");
     
-//    ofxOscMessage sm;
-//    sm.setAddress("/instruction/remove");
-//    sm.addIntArg(myId);
-//    sm.addFloatArg(_g.x);
-//    sm.addFloatArg(_g.y);
-//    sm.addFloatArg(_duration);
-//    sm.addFloatArg(_delay);
-//    toSoundRef.sendMessage(sm);
+    ofxOscMessage sm;
+    sm.setAddress("/instruction/remove");
+    sm.addIntArg(myId);
+    sm.addFloatArg(_goalPosition.x);
+    sm.addFloatArg(_goalPosition.y);
+    sm.addFloatArg(_duration);
+    sm.addFloatArg(_delay);
+    PL_SoundSender::sendMessage(sm);
 }
 
 void PL_InstructionBehavior::sendMoveInstr(ofVec2f _startPosition, ofVec2f _endPosition, float _duration, float _delay) {
@@ -129,14 +131,14 @@ void PL_InstructionBehavior::sendMoveInstr(ofVec2f _startPosition, ofVec2f _endP
     connection.send(m.toStyledString());
     pl_console::addLine("[" + ofToString(myId) + "]: move instruction sent");
     
-//    ofxOscMessage sm;
-//    sm.setAddress("/instruction/move");
-//    sm.addIntArg(myId);
-//    sm.addFloatArg(_s.x);
-//    sm.addFloatArg(_s.y);
-//    sm.addFloatArg(_e.x);
-//    sm.addFloatArg(_e.y);
-//    sm.addFloatArg(_duration);
-//    sm.addFloatArg(_delay);
-//    toSoundRef.sendMessage(sm);
+    ofxOscMessage sm;
+    sm.setAddress("/instruction/move");
+    sm.addIntArg(myId);
+    sm.addFloatArg(_startPosition.x);
+    sm.addFloatArg(_startPosition.y);
+    sm.addFloatArg(_endPosition.x);
+    sm.addFloatArg(_endPosition.y);
+    sm.addFloatArg(_duration);
+    sm.addFloatArg(_delay);
+    PL_SoundSender::sendMessage(sm);
 }

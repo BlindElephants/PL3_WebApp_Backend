@@ -7,13 +7,13 @@
 //
 
 #include "ClientConnection.hpp"
+#include "PL_SoundSender.hpp" 
 
 int ClientConnection::ClientID=0;
 
-ClientConnection::ClientConnection(ofxLibwebsockets::Connection& _connection, ofxOscSender& _toSoundRef)
+ClientConnection::ClientConnection(ofxLibwebsockets::Connection& _connection)
 :
 connection(_connection),
-toSoundRef(_toSoundRef),
 age(0.0),
 timeSinceLastPing(0.0),
 myId(ClientID++)
@@ -43,7 +43,7 @@ void ClientConnection::addObject(ofVec2f _position, bool _user) {
         sm.addIntArg(myId);
         sm.addFloatArg(_position.x);
         sm.addFloatArg(_position.y);
-        toSoundRef.sendMessage(sm);
+        PL_SoundSender::sendMessage(sm);
     }
 }
 
@@ -57,7 +57,7 @@ void ClientConnection::moveObject(int _index, ofVec2f _newPosition) {
     sm.addFloatArg(objects[_index].y);
     sm.addFloatArg(_newPosition.x);
     sm.addFloatArg(_newPosition.y);
-    toSoundRef.sendMessage(sm);
+    PL_SoundSender::sendMessage(sm);
     
     objects[_index].set(_newPosition);
 }
@@ -77,7 +77,7 @@ void ClientConnection::moveObject(ofVec2f _oldPosition, ofVec2f _newPosition) {
             sm.addFloatArg(_oldPosition.y);
             sm.addFloatArg(_newPosition.x);
             sm.addFloatArg(_newPosition.y);
-            toSoundRef.sendMessage(sm);
+            PL_SoundSender::sendMessage(sm);
         }
     }
 }
@@ -89,7 +89,7 @@ void ClientConnection::removeObject(int _index) {
     sm.addIntArg(myId);
     sm.addFloatArg(objects[_index].x);
     sm.addFloatArg(objects[_index].y);
-    toSoundRef.sendMessage(sm);
+    PL_SoundSender::sendMessage(sm);
     
     objects.erase(objects.begin()+_index);
 }
@@ -114,7 +114,7 @@ void ClientConnection::removeObject(ofVec2f _position) {
         sm.addIntArg(myId);
         sm.addFloatArg(_position.x);
         sm.addFloatArg(_position.y);
-        toSoundRef.sendMessage(sm);
+        PL_SoundSender::sendMessage(sm);
     }
 }
 
@@ -157,7 +157,7 @@ void ClientConnection::setObjects(vector<ofVec2f> _objects) {
             sm.addFloatArg(objects[i].y);
         }
     }
-    toSoundRef.sendMessage(sm);
+    PL_SoundSender::sendMessage(sm);
 }
 
 int ClientConnection::getId() { return myId; }

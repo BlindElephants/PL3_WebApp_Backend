@@ -36,7 +36,7 @@ public:
 
     int getId();
     
-    ClientConnection(ofxLibwebsockets::Connection& _connection, ofxOscSender& _toSoundRef);
+    ClientConnection(ofxLibwebsockets::Connection& _connection);
     
 private:
     void normalizeCoords(ofVec2f &position);
@@ -49,9 +49,6 @@ private:
     
     ofVec2f ClientScreenDimensions;
     float   ClientObjectSize;
-    
-    
-    ofxOscSender& toSoundRef;
     
     shared_ptr<PL_GoalManager> gm;
     shared_ptr<PL_InstructionManager> im;

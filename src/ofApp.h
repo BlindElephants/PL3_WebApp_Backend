@@ -9,6 +9,7 @@
 #include <unordered_map>
 
 #include "ClientConnection.hpp"
+#include "PL_SoundSender.hpp"
 
 class ofApp : public ofBaseApp{
     
@@ -19,7 +20,7 @@ public:
     void keyPressed(int key);
     void exit();
     
-    ofxOscSender toSound;
+//    ofxOscSender toSound;
     
     unordered_set<string> connectedUsers;
     

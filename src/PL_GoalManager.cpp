@@ -14,7 +14,6 @@ void PL_GoalManager::makeNewGoalSet_Random(int numberGoals) {
     if(numberGoals>maxNumberOfGoals) numberGoals=maxNumberOfGoals;
     goals.clear();
     completedGoals.clear();
-    cout << deviceScreenDimensions << endl;
 
     for(int i=0; i<numberGoals; i++ ) {
         ofVec2f p;

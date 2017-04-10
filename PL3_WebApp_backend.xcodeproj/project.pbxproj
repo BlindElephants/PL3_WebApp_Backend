@@ -19,6 +19,7 @@
 		5C11554B1E9ADBA100E3B3A0 /* PL_IB_A.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5C1155491E9ADBA100E3B3A0 /* PL_IB_A.cpp */; };
 		5C11554E1E9AF32D00E3B3A0 /* ClientUtilities.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5C11554C1E9AF32D00E3B3A0 /* ClientUtilities.cpp */; };
 		5C2C6BEB1E9C3EDC00518ADF /* PL_IB_WAIT.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5C2C6BE91E9C3EDC00518ADF /* PL_IB_WAIT.cpp */; };
+		5C2C6BEF1E9C484500518ADF /* PL_SoundSender.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5C2C6BED1E9C484500518ADF /* PL_SoundSender.cpp */; };
 		5F55E7FF0D2EE1E3D6E345E2 /* ClientConnection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B918175D91D54CC738A7CD95 /* ClientConnection.cpp */; };
 		62545D179C94265CA1389D4A /* OscOutboundPacketStream.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 63A47AC60FFAFC3BF093EC0F /* OscOutboundPacketStream.cpp */; };
 		63B57AC5BF4EF088491E0317 /* ofxXmlSettings.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 50DF87D612C5AAE17AAFA6C0 /* ofxXmlSettings.cpp */; };
@@ -110,6 +111,8 @@
 		5C11554D1E9AF32D00E3B3A0 /* ClientUtilities.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ClientUtilities.hpp; sourceTree = "<group>"; };
 		5C2C6BE91E9C3EDC00518ADF /* PL_IB_WAIT.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PL_IB_WAIT.cpp; sourceTree = "<group>"; };
 		5C2C6BEA1E9C3EDC00518ADF /* PL_IB_WAIT.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = PL_IB_WAIT.hpp; sourceTree = "<group>"; };
+		5C2C6BED1E9C484500518ADF /* PL_SoundSender.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PL_SoundSender.cpp; sourceTree = "<group>"; };
+		5C2C6BEE1E9C484500518ADF /* PL_SoundSender.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = PL_SoundSender.hpp; sourceTree = "<group>"; };
 		5D95092D59E7A34C9DB7823E /* Server.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = Server.cpp; path = ../../../addons/ofxLibwebsockets/libs/ofxLibwebsockets/src/Server.cpp; sourceTree = SOURCE_ROOT; };
 		63A47AC60FFAFC3BF093EC0F /* OscOutboundPacketStream.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = OscOutboundPacketStream.cpp; path = ../../../addons/ofxOsc/libs/oscpack/src/osc/OscOutboundPacketStream.cpp; sourceTree = SOURCE_ROOT; };
 		65EEFA3DA3526E9CDD9C21F9 /* ofxOscBundle.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxOscBundle.cpp; path = ../../../addons/ofxOsc/src/ofxOscBundle.cpp; sourceTree = SOURCE_ROOT; };
@@ -319,10 +322,40 @@
 		5C11554F1E9AF45700E3B3A0 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				5C2C6BF11E9C4B7000518ADF /* Console */,
 				5C11554C1E9AF32D00E3B3A0 /* ClientUtilities.cpp */,
 				5C11554D1E9AF32D00E3B3A0 /* ClientUtilities.hpp */,
 			);
 			name = Utils;
+			sourceTree = "<group>";
+		};
+		5C2C6BEC1E9C483700518ADF /* PL_SoundServer */ = {
+			isa = PBXGroup;
+			children = (
+				5C2C6BED1E9C484500518ADF /* PL_SoundSender.cpp */,
+				5C2C6BEE1E9C484500518ADF /* PL_SoundSender.hpp */,
+			);
+			name = PL_SoundServer;
+			sourceTree = "<group>";
+		};
+		5C2C6BF01E9C4B5C00518ADF /* Client */ = {
+			isa = PBXGroup;
+			children = (
+				B918175D91D54CC738A7CD95 /* ClientConnection.cpp */,
+				3628D0684FADD98657E82208 /* ClientConnection.hpp */,
+				5C1155461E9AA9E600E3B3A0 /* PL_InstructionBehaviors */,
+				5C1155451E9AA9DD00E3B3A0 /* PL_Goals */,
+			);
+			name = Client;
+			sourceTree = "<group>";
+		};
+		5C2C6BF11E9C4B7000518ADF /* Console */ = {
+			isa = PBXGroup;
+			children = (
+				965E5A0F540346BBC58966B3 /* pl_console.cpp */,
+				6F6AC259974E24CD80F857C2 /* pl_console.hpp */,
+			);
+			name = Console;
 			sourceTree = "<group>";
 		};
 		641362CA659FAFEE4E81001B /* posix */ = {
@@ -478,12 +511,8 @@
 				E4B69E1D0A3A1BDC003C02F2 /* main.cpp */,
 				E4B69E1E0A3A1BDC003C02F2 /* ofApp.cpp */,
 				E4B69E1F0A3A1BDC003C02F2 /* ofApp.h */,
-				B918175D91D54CC738A7CD95 /* ClientConnection.cpp */,
-				3628D0684FADD98657E82208 /* ClientConnection.hpp */,
-				965E5A0F540346BBC58966B3 /* pl_console.cpp */,
-				6F6AC259974E24CD80F857C2 /* pl_console.hpp */,
-				5C1155461E9AA9E600E3B3A0 /* PL_InstructionBehaviors */,
-				5C1155451E9AA9DD00E3B3A0 /* PL_Goals */,
+				5C2C6BF01E9C4B5C00518ADF /* Client */,
+				5C2C6BEC1E9C483700518ADF /* PL_SoundServer */,
 				5C11554F1E9AF45700E3B3A0 /* Utils */,
 			);
 			path = src;
@@ -632,6 +661,7 @@
 				640279EE111671BD026CB013 /* ofxOscReceiver.cpp in Sources */,
 				8F5205AEF8861EF234F0651A /* ofxOscSender.cpp in Sources */,
 				ADE367465D2A8EBAD4C7A8D9 /* IpEndpointName.cpp in Sources */,
+				5C2C6BEF1E9C484500518ADF /* PL_SoundSender.cpp in Sources */,
 				67FE4C7B15C2F0478C8126C2 /* NetworkingUtils.cpp in Sources */,
 				510CAFE035E576A4E1502D52 /* UdpSocket.cpp in Sources */,
 				62545D179C94265CA1389D4A /* OscOutboundPacketStream.cpp in Sources */,
