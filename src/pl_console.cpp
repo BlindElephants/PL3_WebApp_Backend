@@ -17,7 +17,6 @@ pl_console::pl_console() {
     ofNoFill();
     ofDrawRectangle(1, 1, fbo.getWidth()-2, fbo.getHeight()-2);
     fbo.end();
-    
 }
 
 pl_console &pl_console::instance() {

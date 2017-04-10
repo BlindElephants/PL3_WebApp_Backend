@@ -73,7 +73,6 @@ void PL_InstructionBehavior::sendAddInstr(ofVec2f _goalPosition, float _duration
 //    ofVec2f _g = _goalPosition;
 //    convertToScreenCoords(_goalPosition);
     m["address"] = "/instruction/add";
-    m["args"].append(myId);
     m["args"].append(_goalPosition.x);
     m["args"].append(_goalPosition.y);
     m["args"].append(_duration);
@@ -81,14 +80,14 @@ void PL_InstructionBehavior::sendAddInstr(ofVec2f _goalPosition, float _duration
     connection.send(m.toStyledString());
     pl_console::addLine("[" + ofToString(myId) + "]: add instruction sent");
     
-//    ofxOscMessage sm;
-//    sm.setAddress("/instruction/add");
-//    sm.addIntArg(myId);
-//    sm.addFloatArg(_g.x);
-//    sm.addFloatArg(_g.y);
-//    sm.addFloatArg(_duration);
-//    sm.addFloatArg(_delay);
-//    toSoundRef.sendMessage(sm);
+    ofxOscMessage sm;
+    sm.setAddress("/instruction/add");
+    sm.addIntArg(myId);
+    sm.addFloatArg(_goalPosition.x);
+    sm.addFloatArg(_goalPosition.y);
+    sm.addFloatArg(_duration);
+    sm.addFloatArg(_delay);
+    PL_SoundSender::sendMessage(sm);
 }
 
 void PL_InstructionBehavior::sendRemoveInstr(ofVec2f _goalPosition, float _duration, float _delay) {
