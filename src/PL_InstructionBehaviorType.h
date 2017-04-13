@@ -14,6 +14,11 @@ enum PL_InstructionBehaviorType {
     PLIB_WAIT,
     
     PLIB_A,
+    PLIB_B,
+    PLIB_C,
+    PLIB_D,
+    PLIB_E,
+    
     NUM_BEHAVIORTYPES
 };
 

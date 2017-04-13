@@ -18,6 +18,10 @@
 		5C1155441E9AA7DA00E3B3A0 /* PL_Goal.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5C1155421E9AA7DA00E3B3A0 /* PL_Goal.cpp */; };
 		5C11554B1E9ADBA100E3B3A0 /* PL_IB_A.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5C1155491E9ADBA100E3B3A0 /* PL_IB_A.cpp */; };
 		5C11554E1E9AF32D00E3B3A0 /* ClientUtilities.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5C11554C1E9AF32D00E3B3A0 /* ClientUtilities.cpp */; };
+		5C1A6D7E1E9FEB2000B71CF5 /* PL_IB_B.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5C1A6D7C1E9FEB2000B71CF5 /* PL_IB_B.cpp */; };
+		5C1A6D811E9FECD200B71CF5 /* PL_IB_C.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5C1A6D7F1E9FECD200B71CF5 /* PL_IB_C.cpp */; };
+		5C1A6D841E9FEDBE00B71CF5 /* PL_IB_D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5C1A6D821E9FEDBE00B71CF5 /* PL_IB_D.cpp */; };
+		5C1A6D871E9FEEF000B71CF5 /* PL_IB_E.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5C1A6D851E9FEEF000B71CF5 /* PL_IB_E.cpp */; };
 		5C2C6BEB1E9C3EDC00518ADF /* PL_IB_WAIT.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5C2C6BE91E9C3EDC00518ADF /* PL_IB_WAIT.cpp */; };
 		5C2C6BEF1E9C484500518ADF /* PL_SoundSender.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5C2C6BED1E9C484500518ADF /* PL_SoundSender.cpp */; };
 		5F55E7FF0D2EE1E3D6E345E2 /* ClientConnection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B918175D91D54CC738A7CD95 /* ClientConnection.cpp */; };
@@ -109,6 +113,14 @@
 		5C11554A1E9ADBA100E3B3A0 /* PL_IB_A.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = PL_IB_A.hpp; sourceTree = "<group>"; };
 		5C11554C1E9AF32D00E3B3A0 /* ClientUtilities.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ClientUtilities.cpp; sourceTree = "<group>"; };
 		5C11554D1E9AF32D00E3B3A0 /* ClientUtilities.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ClientUtilities.hpp; sourceTree = "<group>"; };
+		5C1A6D7C1E9FEB2000B71CF5 /* PL_IB_B.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PL_IB_B.cpp; sourceTree = "<group>"; };
+		5C1A6D7D1E9FEB2000B71CF5 /* PL_IB_B.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = PL_IB_B.hpp; sourceTree = "<group>"; };
+		5C1A6D7F1E9FECD200B71CF5 /* PL_IB_C.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PL_IB_C.cpp; sourceTree = "<group>"; };
+		5C1A6D801E9FECD200B71CF5 /* PL_IB_C.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = PL_IB_C.hpp; sourceTree = "<group>"; };
+		5C1A6D821E9FEDBE00B71CF5 /* PL_IB_D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PL_IB_D.cpp; sourceTree = "<group>"; };
+		5C1A6D831E9FEDBE00B71CF5 /* PL_IB_D.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = PL_IB_D.hpp; sourceTree = "<group>"; };
+		5C1A6D851E9FEEF000B71CF5 /* PL_IB_E.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PL_IB_E.cpp; sourceTree = "<group>"; };
+		5C1A6D861E9FEEF000B71CF5 /* PL_IB_E.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = PL_IB_E.hpp; sourceTree = "<group>"; };
 		5C2C6BE91E9C3EDC00518ADF /* PL_IB_WAIT.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PL_IB_WAIT.cpp; sourceTree = "<group>"; };
 		5C2C6BEA1E9C3EDC00518ADF /* PL_IB_WAIT.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = PL_IB_WAIT.hpp; sourceTree = "<group>"; };
 		5C2C6BED1E9C484500518ADF /* PL_SoundSender.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PL_SoundSender.cpp; sourceTree = "<group>"; };
@@ -315,6 +327,14 @@
 				5C11554A1E9ADBA100E3B3A0 /* PL_IB_A.hpp */,
 				5C2C6BE91E9C3EDC00518ADF /* PL_IB_WAIT.cpp */,
 				5C2C6BEA1E9C3EDC00518ADF /* PL_IB_WAIT.hpp */,
+				5C1A6D7C1E9FEB2000B71CF5 /* PL_IB_B.cpp */,
+				5C1A6D7D1E9FEB2000B71CF5 /* PL_IB_B.hpp */,
+				5C1A6D7F1E9FECD200B71CF5 /* PL_IB_C.cpp */,
+				5C1A6D801E9FECD200B71CF5 /* PL_IB_C.hpp */,
+				5C1A6D821E9FEDBE00B71CF5 /* PL_IB_D.cpp */,
+				5C1A6D831E9FEDBE00B71CF5 /* PL_IB_D.hpp */,
+				5C1A6D851E9FEEF000B71CF5 /* PL_IB_E.cpp */,
+				5C1A6D861E9FEEF000B71CF5 /* PL_IB_E.hpp */,
 			);
 			name = Behaviors;
 			sourceTree = "<group>";
@@ -639,20 +659,24 @@
 			files = (
 				E4B69E200A3A1BDC003C02F2 /* main.cpp in Sources */,
 				E4B69E210A3A1BDC003C02F2 /* ofApp.cpp in Sources */,
+				5C1A6D841E9FEDBE00B71CF5 /* PL_IB_D.cpp in Sources */,
 				5F55E7FF0D2EE1E3D6E345E2 /* ClientConnection.cpp in Sources */,
 				E4A1D66931D1436830B8732A /* pl_console.cpp in Sources */,
 				9EF1133BC23669A5C94FE30F /* jsoncpp.cpp in Sources */,
 				C6C3882A0B0872D1485F3874 /* Client.cpp in Sources */,
+				5C1A6D811E9FECD200B71CF5 /* PL_IB_C.cpp in Sources */,
 				A78C77753D562AE8F0E928ED /* Connection.cpp in Sources */,
 				F1AC6AEFB9B93C6AC45C9CA8 /* Events.cpp in Sources */,
 				86135253DC7909CA8590E157 /* Protocol.cpp in Sources */,
 				6D73A566CFEC0B462FE6E43C /* Reactor.cpp in Sources */,
 				5C1155391E9A9C3900E3B3A0 /* PL_InstructionManager.cpp in Sources */,
 				5C2C6BEB1E9C3EDC00518ADF /* PL_IB_WAIT.cpp in Sources */,
+				5C1A6D871E9FEEF000B71CF5 /* PL_IB_E.cpp in Sources */,
 				F3AD9E2A2E56B6AF32A0BDAF /* Server.cpp in Sources */,
 				CCD326ED8E01272042317DD2 /* Util.cpp in Sources */,
 				72A929D3561B8232A182ABFC /* ofxOscBundle.cpp in Sources */,
 				5864AD82E20F15536D054EA3 /* ofxOscMessage.cpp in Sources */,
+				5C1A6D7E1E9FEB2000B71CF5 /* PL_IB_B.cpp in Sources */,
 				5C1155411E9AA7C200E3B3A0 /* PL_GoalManager.cpp in Sources */,
 				4ADB88E2FB52E76A471065DE /* ofxOscParameterSync.cpp in Sources */,
 				5C11554B1E9ADBA100E3B3A0 /* PL_IB_A.cpp in Sources */,
