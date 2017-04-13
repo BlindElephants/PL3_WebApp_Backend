@@ -24,7 +24,6 @@ void PL_IB_WAIT::update() {
     }
 }
 
-
 float PL_IB_WAIT::getNextInstruction() {
     if(gm->getDeviceScreenDimensions().length()>0.0f) {
         isFinished=true;
