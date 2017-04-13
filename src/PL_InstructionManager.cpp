@@ -36,6 +36,26 @@ void PL_InstructionManager::update() {
                 pl_console::addLine("[" + ofToString(myId) + "]: PL_IB_A created");
                 break;
                 
+            case PLIB_B:
+                ib = make_shared<PL_IB_B>(gm, myId, connection, objects);
+                pl_console::addLine("[" + ofToString(myId) + "]: PL_IB_B created");
+                break;
+                
+            case PLIB_C:
+                ib = make_shared<PL_IB_C>(gm, myId, connection, objects);
+                pl_console::addLine("[" + ofToString(myId) + "]: PL_IB_C created");
+                break;
+                
+            case PLIB_D:
+                ib = make_shared<PL_IB_D>(gm, myId, connection, objects);
+                pl_console::addLine("[" + ofToString(myId) + "]: PL_IB_D created");
+                break;
+                
+            case PLIB_E:
+                ib = make_shared<PL_IB_E>(gm, myId, connection, objects);
+                pl_console::addLine("[" + ofToString(myId) + "]: PL_IB_E created");
+                break;
+                
             case NUM_BEHAVIORTYPES:
                 pl_console::addLine("[" + ofToString(myId) + "]: error creating new behavior type");
                 break;

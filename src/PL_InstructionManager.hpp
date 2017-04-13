@@ -15,6 +15,11 @@
 
 #include "PL_IB_WAIT.hpp"
 #include "PL_IB_A.hpp"
+#include "PL_IB_B.hpp"
+#include "PL_IB_C.hpp"
+#include "PL_IB_D.hpp"
+#include "PL_IB_E.hpp"
+
 #include "PL_InstructionBehavior.hpp"
 
 #include "PL_GoalManager.hpp"

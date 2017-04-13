@@ -8,6 +8,7 @@
 
 #include "PL_InstructionBehavior.hpp"
 #include "PL_SoundSender.hpp"
+#include "PL_BehaviorTypeGen.hpp"
 
 PL_InstructionBehavior::PL_InstructionBehavior(float _timeTillFirstInstruction, PL_InstructionBehaviorType _myType, shared_ptr<PL_GoalManager> _gm, const int &_myId, ofxLibwebsockets::Connection &_connection, vector<ofVec2f> &_objects)
 :
@@ -20,7 +21,9 @@ gm(_gm),
 myId(_myId),
 connection(_connection),
 objects(_objects)
-{};
+{
+    followType = FollowGen::getFollowType(myType);
+};
 
 void PL_InstructionBehavior::tick() {
     timer += ofGetLastFrameTime();

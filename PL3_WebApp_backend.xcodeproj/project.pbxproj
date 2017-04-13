@@ -22,6 +22,7 @@
 		5C1A6D811E9FECD200B71CF5 /* PL_IB_C.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5C1A6D7F1E9FECD200B71CF5 /* PL_IB_C.cpp */; };
 		5C1A6D841E9FEDBE00B71CF5 /* PL_IB_D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5C1A6D821E9FEDBE00B71CF5 /* PL_IB_D.cpp */; };
 		5C1A6D871E9FEEF000B71CF5 /* PL_IB_E.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5C1A6D851E9FEEF000B71CF5 /* PL_IB_E.cpp */; };
+		5C1A6D8A1EA010E800B71CF5 /* PL_BehaviorTypeGen.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5C1A6D881EA010E800B71CF5 /* PL_BehaviorTypeGen.cpp */; };
 		5C2C6BEB1E9C3EDC00518ADF /* PL_IB_WAIT.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5C2C6BE91E9C3EDC00518ADF /* PL_IB_WAIT.cpp */; };
 		5C2C6BEF1E9C484500518ADF /* PL_SoundSender.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5C2C6BED1E9C484500518ADF /* PL_SoundSender.cpp */; };
 		5F55E7FF0D2EE1E3D6E345E2 /* ClientConnection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B918175D91D54CC738A7CD95 /* ClientConnection.cpp */; };
@@ -121,6 +122,8 @@
 		5C1A6D831E9FEDBE00B71CF5 /* PL_IB_D.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = PL_IB_D.hpp; sourceTree = "<group>"; };
 		5C1A6D851E9FEEF000B71CF5 /* PL_IB_E.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PL_IB_E.cpp; sourceTree = "<group>"; };
 		5C1A6D861E9FEEF000B71CF5 /* PL_IB_E.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = PL_IB_E.hpp; sourceTree = "<group>"; };
+		5C1A6D881EA010E800B71CF5 /* PL_BehaviorTypeGen.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PL_BehaviorTypeGen.cpp; sourceTree = "<group>"; };
+		5C1A6D891EA010E800B71CF5 /* PL_BehaviorTypeGen.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = PL_BehaviorTypeGen.hpp; sourceTree = "<group>"; };
 		5C2C6BE91E9C3EDC00518ADF /* PL_IB_WAIT.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PL_IB_WAIT.cpp; sourceTree = "<group>"; };
 		5C2C6BEA1E9C3EDC00518ADF /* PL_IB_WAIT.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = PL_IB_WAIT.hpp; sourceTree = "<group>"; };
 		5C2C6BED1E9C484500518ADF /* PL_SoundSender.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PL_SoundSender.cpp; sourceTree = "<group>"; };
@@ -335,6 +338,8 @@
 				5C1A6D831E9FEDBE00B71CF5 /* PL_IB_D.hpp */,
 				5C1A6D851E9FEEF000B71CF5 /* PL_IB_E.cpp */,
 				5C1A6D861E9FEEF000B71CF5 /* PL_IB_E.hpp */,
+				5C1A6D881EA010E800B71CF5 /* PL_BehaviorTypeGen.cpp */,
+				5C1A6D891EA010E800B71CF5 /* PL_BehaviorTypeGen.hpp */,
 			);
 			name = Behaviors;
 			sourceTree = "<group>";
@@ -680,6 +685,7 @@
 				5C1155411E9AA7C200E3B3A0 /* PL_GoalManager.cpp in Sources */,
 				4ADB88E2FB52E76A471065DE /* ofxOscParameterSync.cpp in Sources */,
 				5C11554B1E9ADBA100E3B3A0 /* PL_IB_A.cpp in Sources */,
+				5C1A6D8A1EA010E800B71CF5 /* PL_BehaviorTypeGen.cpp in Sources */,
 				5C11553C1E9A9C4F00E3B3A0 /* PL_InstructionBehavior.cpp in Sources */,
 				5C11554E1E9AF32D00E3B3A0 /* ClientUtilities.cpp in Sources */,
 				640279EE111671BD026CB013 /* ofxOscReceiver.cpp in Sources */,

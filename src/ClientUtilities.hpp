@@ -14,8 +14,9 @@
 namespace ClientUtilities {
     ofVec2f normalizeCoords(ofVec2f position, ofVec2f &screenSize);
     ofVec2f normalToScreenCoords(ofVec2f position, ofVec2f &screenSize);
-    
     ofVec2f offsetForScreen(ofVec2f position, ofVec2f &screenSize);
 }
+
+
 
 #endif /* ClientUtilities_hpp */

@@ -1,10 +1,12 @@
 #include "ofApp.h"
-
+#include "PL_BehaviorTypeGen.hpp"
 
 //--------------------------------------------------------------
 void ofApp::setup(){
 //    ofEnableAntiAliasing();
     ofSetWindowShape(400, 700);
+    
+    FollowGen::setup();
     
     pl_console::setFbo(0, 0, 400, ofGetHeight());
     pl_console::addLine("server initialized");

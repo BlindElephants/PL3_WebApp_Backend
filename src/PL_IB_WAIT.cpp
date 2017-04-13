@@ -13,7 +13,6 @@ PL_IB_WAIT::PL_IB_WAIT(shared_ptr<PL_GoalManager> _gm, const int &_myId, ofxLibw
 :
 PL_InstructionBehavior(2.5f, PL_InstructionBehaviorType::PLIB_WAIT, _gm, _myId, _connection, _objects)
 {
-    followType=PLIB_A;
 }
 
 void PL_IB_WAIT::update() {

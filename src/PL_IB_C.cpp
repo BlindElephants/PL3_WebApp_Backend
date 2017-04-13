@@ -14,7 +14,6 @@ PL_IB_C::PL_IB_C(shared_ptr<PL_GoalManager> _gm, const int &_myId, ofxLibwebsock
 PL_InstructionBehavior(ofRandom(5, 20), PL_InstructionBehaviorType::PLIB_C, _gm, _myId, _connection, _objects)
 {
     gm->makeNewGoalSet_Random(1);
-    followType=PL_InstructionBehaviorType::PLIB_A;
 }
 
 float PL_IB_C::getNextInstruction() {
