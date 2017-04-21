@@ -31,7 +31,9 @@ public:
     
     void setObjects(vector<ofVec2f> _objects);
     
-    void setClientScreenDimensions(float w, float h, float objectSize);
+    string &getUserName();
+    
+    void setClientUser(string _userName, float w, float h, float objectSize);
     void tick();
 
     int getId();
@@ -47,6 +49,7 @@ private:
     vector <ofVec2f> objects;
     float timeSinceLastPing;
     
+    string userName;
     ofVec2f ClientScreenDimensions;
     float   ClientObjectSize;
     

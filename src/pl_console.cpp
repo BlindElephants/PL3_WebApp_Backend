@@ -24,7 +24,17 @@ pl_console &pl_console::instance() {
     return c;
 }
 
+void pl_console::setSender(string addr, int port) {
+    instance().sender.setup(addr, port);
+}
+
 void pl_console::addLine(string l) {
+    
+    ofxOscMessage m;
+    m.setAddress("/term/line");
+    m.addStringArg(l);
+    instance().sender.sendMessage(m);
+    
     instance().lines.push_back(l);
     while(instance().lines.size()>(instance().fbo.getHeight()/12)-1) {
         instance().lines.erase(instance().lines.begin());

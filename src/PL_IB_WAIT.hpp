@@ -16,7 +16,7 @@ class PL_IB_WAIT : public PL_InstructionBehavior {
 public:
     virtual float getNextInstruction();
     virtual void update();
-    PL_IB_WAIT(shared_ptr<PL_GoalManager> _gm, const int &_myId, ofxLibwebsockets::Connection &_connection, vector<ofVec2f> &_objects);
+    PL_IB_WAIT(shared_ptr<PL_GoalManager> _gm, string &_userName, const int &_myId, ofxLibwebsockets::Connection &_connection, vector<ofVec2f> &_objects);
 private:
     
 };

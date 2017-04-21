@@ -9,14 +9,15 @@
 #include "PL_InstructionManager.hpp"
 
 
-PL_InstructionManager::PL_InstructionManager(shared_ptr<PL_GoalManager> _gm, const int &_myId, ofxLibwebsockets::Connection &_connection, vector<ofVec2f> &_objects)
+PL_InstructionManager::PL_InstructionManager(shared_ptr<PL_GoalManager> _gm, string &_userName, const int &_myId, ofxLibwebsockets::Connection &_connection, vector<ofVec2f> &_objects)
 :
 gm(_gm),
 objects(_objects),
 myId(_myId),
+userName(_userName),
 connection(_connection)
 {
-    ib = make_shared<PL_IB_WAIT>(gm, myId, connection, objects);
+    ib = make_shared<PL_IB_WAIT>(gm, userName, myId, connection, objects);
 }
 
 void PL_InstructionManager::update() {
@@ -27,32 +28,32 @@ void PL_InstructionManager::update() {
         PL_InstructionBehaviorType nextType = ib->getFollowType();
         switch(nextType) {
             case PLIB_WAIT:
-                ib = make_shared<PL_IB_WAIT>(gm, myId, connection, objects);
+                ib = make_shared<PL_IB_WAIT>(gm, userName, myId, connection, objects);
                 pl_console::addLine("[" + ofToString(myId) + "]: PL_IB_WAIT created");
                 break;
                 
             case PLIB_A:
-                ib = make_shared<PL_IB_A>(gm, myId, connection, objects);
+                ib = make_shared<PL_IB_A>(gm, userName, myId, connection, objects);
                 pl_console::addLine("[" + ofToString(myId) + "]: PL_IB_A created");
                 break;
                 
             case PLIB_B:
-                ib = make_shared<PL_IB_B>(gm, myId, connection, objects);
+                ib = make_shared<PL_IB_B>(gm, userName, myId, connection, objects);
                 pl_console::addLine("[" + ofToString(myId) + "]: PL_IB_B created");
                 break;
                 
             case PLIB_C:
-                ib = make_shared<PL_IB_C>(gm, myId, connection, objects);
+                ib = make_shared<PL_IB_C>(gm, userName, myId, connection, objects);
                 pl_console::addLine("[" + ofToString(myId) + "]: PL_IB_C created");
                 break;
                 
             case PLIB_D:
-                ib = make_shared<PL_IB_D>(gm, myId, connection, objects);
+                ib = make_shared<PL_IB_D>(gm, userName, myId, connection, objects);
                 pl_console::addLine("[" + ofToString(myId) + "]: PL_IB_D created");
                 break;
                 
             case PLIB_E:
-                ib = make_shared<PL_IB_E>(gm, myId, connection, objects);
+                ib = make_shared<PL_IB_E>(gm, userName, myId, connection, objects);
                 pl_console::addLine("[" + ofToString(myId) + "]: PL_IB_E created");
                 break;
                 

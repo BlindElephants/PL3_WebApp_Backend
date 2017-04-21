@@ -19,23 +19,27 @@ timeSinceLastPing(0.0),
 myId(ClientID++)
 {
     gm=make_shared<PL_GoalManager>(ClientScreenDimensions, ClientObjectSize);
-    im=make_shared<PL_InstructionManager>(gm, myId, connection, objects);
+    im=make_shared<PL_InstructionManager>(gm, userName, myId, connection, objects);
 }
 
 void ClientConnection::tick() {
     age += ofGetLastFrameTime();
-    timeSinceLastPing+= ofGetLastFrameTime();
-    if(timeSinceLastPing >= 2.5f) {
-        Json::Value m;
-        m["address"] = "/get/objects";
-        connection.send(m.toStyledString());
-        timeSinceLastPing = 0.0f;
-    }
+//    timeSinceLastPing+= ofGetLastFrameTime();
+//    if(timeSinceLastPing >= 2.5f) {
+//        Json::Value m;
+//        m["address"] = "/get/objects";
+//        connection.send(m.toStyledString());
+//        timeSinceLastPing = 0.0f;
+//    }
     im->update();
 }
 
+string &ClientConnection::getUserName() {return userName;}
+
 void ClientConnection::addObject(ofVec2f _position, bool _user) {
+    cout << _position << endl;
     normalizeCoords(_position);
+    cout << _position << endl;
     objects.push_back(_position);
     if(_user) {
         ofxOscMessage sm;
@@ -120,9 +124,11 @@ void ClientConnection::removeObject(ofVec2f _position) {
 
 void ClientConnection::clearObjects() {objects.clear();}
 
-void ClientConnection::setClientScreenDimensions(float w, float h, float objectSize) {
+void ClientConnection::setClientUser(string _userName, float w, float h, float objectSize) {
+    userName = _userName;
     ClientScreenDimensions.set(w, h);
     ClientObjectSize=objectSize;
+    cout << "User Name Set: " << userName << endl;
     cout << "Screen Dimensions Set: " << w << ", " << h << endl;
 }
 

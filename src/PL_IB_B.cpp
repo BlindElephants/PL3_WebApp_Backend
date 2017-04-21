@@ -9,9 +9,9 @@
 #include "PL_IB_B.hpp"
 #include "ClientUtilities.hpp"
 
-PL_IB_B::PL_IB_B(shared_ptr<PL_GoalManager> _gm, const int &_myId, ofxLibwebsockets::Connection &_connection, vector<ofVec2f> &_objects)
+PL_IB_B::PL_IB_B(shared_ptr<PL_GoalManager> _gm, string &_userName, const int &_myId, ofxLibwebsockets::Connection &_connection, vector<ofVec2f> &_objects)
 :
-PL_InstructionBehavior(ofRandom(5, 20), PL_InstructionBehaviorType::PLIB_B, _gm, _myId, _connection, _objects)
+PL_InstructionBehavior(ofRandom(5, 20), PL_InstructionBehaviorType::PLIB_B, _gm, _userName, _myId, _connection, _objects)
 {
     gm->makeNewGoalSet_Random(5);
 }

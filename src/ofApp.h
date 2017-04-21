@@ -4,10 +4,7 @@
 #include "ofxOsc.h"
 #include "ofxLibwebsockets.h"
 #include "pl_console.hpp"
-
-#include <unordered_set>
 #include <unordered_map>
-
 #include "ClientConnection.hpp"
 #include "PL_SoundSender.hpp"
 
@@ -17,12 +14,8 @@ public:
     void setup();
     void update();
     void draw();
-    void keyPressed(int key);
     void exit();
     
-//    ofxOscSender toSound;
-    
-    unordered_set<string> connectedUsers;
     
     ofxLibwebsockets::Server server;
     void onConnect( ofxLibwebsockets::Event& args );

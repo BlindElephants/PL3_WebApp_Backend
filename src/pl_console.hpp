@@ -10,12 +10,14 @@
 #define pl_console_hpp
 
 #include "ofMain.h"
+#include "ofxOsc.h"
 
 class pl_console {
 public:
     static pl_console& instance();
     static void addLine(string l);
     static void draw();
+    static void setSender(string addr, int port);
     static void setFbo(float x, float y, float w, float h);
 private:
     pl_console();
@@ -26,6 +28,8 @@ private:
     vector <string> lines;
     ofVec2f fboDrawPosition;
     ofFbo fbo;
+    
+    ofxOscSender sender;
 };
 
 #endif /* pl_console_hpp */

@@ -10,7 +10,7 @@
 #include "PL_SoundSender.hpp"
 #include "PL_BehaviorTypeGen.hpp"
 
-PL_InstructionBehavior::PL_InstructionBehavior(float _timeTillFirstInstruction, PL_InstructionBehaviorType _myType, shared_ptr<PL_GoalManager> _gm, const int &_myId, ofxLibwebsockets::Connection &_connection, vector<ofVec2f> &_objects)
+PL_InstructionBehavior::PL_InstructionBehavior(float _timeTillFirstInstruction, PL_InstructionBehaviorType _myType, shared_ptr<PL_GoalManager> _gm, string &_userName, const int &_myId, ofxLibwebsockets::Connection &_connection, vector<ofVec2f> &_objects)
 :
 myType(_myType),
 isFinished(false),
@@ -19,6 +19,7 @@ nextInstructionNow(false),
 timeTillNextInstruction(_timeTillFirstInstruction),
 gm(_gm),
 myId(_myId),
+userName(_userName),
 connection(_connection),
 objects(_objects)
 {
@@ -44,7 +45,6 @@ void PL_InstructionBehavior::update() {
 
 void PL_InstructionBehavior::sortObjectsGoals(vector<ofVec2f> tempObjects) {
     float d2=gm->getDeviceObjectSize();
-//    d2*=0.5;
     d2*=d2;
     
     if(gm->getCompletedGoals().size() && tempObjects.size()) {
@@ -81,7 +81,7 @@ void PL_InstructionBehavior::sendAddInstr(ofVec2f _goalPosition, float _duration
     m["args"].append(_duration);
     m["args"].append(_delay);
     connection.send(m.toStyledString());
-    pl_console::addLine("[" + ofToString(myId) + "]: add instruction sent");
+    pl_console::addLine("[" + userName + "]: add instruction sent");
     
     ofxOscMessage sm;
     sm.setAddress("/instruction/add");
@@ -104,7 +104,7 @@ void PL_InstructionBehavior::sendRemoveInstr(ofVec2f _goalPosition, float _durat
     m["args"].append(_duration);
     m["args"].append(_delay);
     connection.send(m.toStyledString());
-    pl_console::addLine("[" + ofToString(myId) + "]: remove instruction sent");
+    pl_console::addLine("[" + userName + "]: remove instruction sent");
     
     ofxOscMessage sm;
     sm.setAddress("/instruction/remove");
@@ -131,7 +131,7 @@ void PL_InstructionBehavior::sendMoveInstr(ofVec2f _startPosition, ofVec2f _endP
     m["args"].append(_duration);
     m["args"].append(_delay);
     connection.send(m.toStyledString());
-    pl_console::addLine("[" + ofToString(myId) + "]: move instruction sent");
+    pl_console::addLine("[" + userName + "]: move instruction sent");
     
     ofxOscMessage sm;
     sm.setAddress("/instruction/move");

@@ -14,7 +14,7 @@
 class PL_IB_C : public PL_InstructionBehavior {
 public:
     virtual float getNextInstruction();
-    PL_IB_C(shared_ptr<PL_GoalManager> _gm, const int &_myId, ofxLibwebsockets::Connection &_connection, vector<ofVec2f> &_objects);
+    PL_IB_C(shared_ptr<PL_GoalManager> _gm, string &_userName, const int &_myId, ofxLibwebsockets::Connection &_connection, vector<ofVec2f> &_objects);
 private:
     
 };

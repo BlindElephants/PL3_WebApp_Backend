@@ -33,7 +33,7 @@ public:
     PL_InstructionBehaviorType &getFollowType() {return followType;}
     
     bool &checkIsFinished() {return isFinished;}
-    PL_InstructionBehavior(float _timeTillFirstInstruction, PL_InstructionBehaviorType _myType, shared_ptr<PL_GoalManager> _gm, const int &_myId, ofxLibwebsockets::Connection &_connection, vector<ofVec2f> &_objects);
+    PL_InstructionBehavior(float _timeTillFirstInstruction, PL_InstructionBehaviorType _myType, shared_ptr<PL_GoalManager> _gm, string &_userName, const int &_myId, ofxLibwebsockets::Connection &_connection, vector<ofVec2f> &_objects);
 protected:
     const PL_InstructionBehaviorType myType;
     PL_InstructionBehaviorType followType;
@@ -44,6 +44,7 @@ protected:
     
     bool isFinished;
     const int &myId;
+    string &userName;
     
     ofxLibwebsockets::Connection &connection;
 
