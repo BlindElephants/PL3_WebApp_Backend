@@ -51,7 +51,6 @@ void pl_console::addLine(string l) {
     ofNoFill();
     ofDrawRectangle(1, 1, instance().fbo.getWidth()-2, instance().fbo.getHeight()-2);
     instance().fbo.end();
-    
     ofEnableBlendMode(OF_BLENDMODE_ALPHA);
 }
 

@@ -28,7 +28,7 @@ float PL_IB_E::getNextInstruction() {
     if(gm->getGoals().size()) {
         for(int i=0 ; i<gm->getGoals().size() ; i++ ) {
             float du=ofRandom(1.5, 10.0);
-            float de=ofRandom(1.5, 13.0);
+            float de=ofRandom(0.0, 7.0);
             if((du+de)>timeTillNextInstruction) timeTillNextInstruction=du+de;
             sendAddInstr(gm->getGoals()[i]->getPosition(), du, de);
         }

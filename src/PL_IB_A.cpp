@@ -31,18 +31,18 @@ float PL_IB_A::getNextInstruction() {
     if(gm->getGoals().size()) {
         if(tempObjects.size()) {
             float du=ofRandom(3.0, 7.0);
-            float de=ofRandom(3.0, 15.0);
+            float de=ofRandom(0.0, 5.0);
             if((du+de)>timeTillNextInstruction) timeTillNextInstruction=du+de;
             sendMoveInstr(tempObjects[ofRandom(tempObjects.size())], gm->getGoals()[ofRandom(gm->getGoals().size())]->getPosition(), du, de);
         } else {
             float du=ofRandom(3.0, 7.0);
-            float de=ofRandom(3.0, 15.0);
+            float de=ofRandom(0.0, 5.0);
             if((du+de)>timeTillNextInstruction) timeTillNextInstruction=du+de;
             sendAddInstr(gm->getGoals()[ofRandom(gm->getGoals().size())]->getPosition(), du, de);
         }
     } else if(tempObjects.size()) {
         float du=ofRandom(3.0, 7.0);
-        float de=ofRandom(3.0, 15.0);
+        float de=ofRandom(0.0, 5.0);
         if((du+de)>timeTillNextInstruction) timeTillNextInstruction=du+de;
 
         sendRemoveInstr(tempObjects[tempObjects.size()], du, de);

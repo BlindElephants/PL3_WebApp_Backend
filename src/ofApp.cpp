@@ -8,7 +8,7 @@ void ofApp::setup(){
     
     FollowGen::setup();
 
-    pl_console::setSender("192.168.2.4", 7891);
+    pl_console::setSender("10.0.1.7", 7891);
 //    pl_console::setSender("10.0.1.17", 7891);
     pl_console::setFbo(0, 0, 400, ofGetHeight());
     pl_console::addLine("server initialized");

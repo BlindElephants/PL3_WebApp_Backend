@@ -19,13 +19,13 @@ PL_InstructionBehavior(ofRandom(5, 20), PL_InstructionBehaviorType::PLIB_D, _gm,
 float PL_IB_D::getNextInstruction() {
     timeTillNextInstruction=0.0;
     vector<ofVec2f> tempObjects;
-    if(objects.size()) {
+    if(objects.size()>3) {
         for(int i = 0 ; i < objects.size() ; i ++ ) {
             tempObjects.push_back(ClientUtilities::normalToScreenCoords(objects[i], gm->getDeviceScreenDimensions()));
         }
         for(int i=0; i<tempObjects.size() ; i ++ ) {
             float du=ofRandom(5.0, 12.5);
-            float de=ofRandom(3.0, 9.0);
+            float de=ofRandom(0.0, 6.0);
             if((du+de)>timeTillNextInstruction) timeTillNextInstruction=du+de;
             sendRemoveInstr(tempObjects[i], du, de);
         }

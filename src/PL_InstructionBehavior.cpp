@@ -82,15 +82,7 @@ void PL_InstructionBehavior::sendAddInstr(ofVec2f _goalPosition, float _duration
     m["args"].append(_delay);
     connection.send(m.toStyledString());
     pl_console::addLine("[" + userName + "]: add instruction sent");
-    
-    ofxOscMessage sm;
-    sm.setAddress("/instruction/add");
-    sm.addIntArg(myId);
-    sm.addFloatArg(_goalPosition.x);
-    sm.addFloatArg(_goalPosition.y);
-    sm.addFloatArg(_duration);
-    sm.addFloatArg(_delay);
-    PL_SoundSender::sendMessage(sm);
+    PL_SoundSender::addInstructionEvent(PL_SoundSender::ADD, _goalPosition, _delay, _duration, myId);
 }
 
 void PL_InstructionBehavior::sendRemoveInstr(ofVec2f _goalPosition, float _duration, float _delay) {
@@ -105,15 +97,7 @@ void PL_InstructionBehavior::sendRemoveInstr(ofVec2f _goalPosition, float _durat
     m["args"].append(_delay);
     connection.send(m.toStyledString());
     pl_console::addLine("[" + userName + "]: remove instruction sent");
-    
-    ofxOscMessage sm;
-    sm.setAddress("/instruction/remove");
-    sm.addIntArg(myId);
-    sm.addFloatArg(_goalPosition.x);
-    sm.addFloatArg(_goalPosition.y);
-    sm.addFloatArg(_duration);
-    sm.addFloatArg(_delay);
-    PL_SoundSender::sendMessage(sm);
+    PL_SoundSender::addInstructionEvent(PL_SoundSender::REMOVE, _goalPosition, _delay, _duration, myId);
 }
 
 void PL_InstructionBehavior::sendMoveInstr(ofVec2f _startPosition, ofVec2f _endPosition, float _duration, float _delay) {
@@ -132,15 +116,5 @@ void PL_InstructionBehavior::sendMoveInstr(ofVec2f _startPosition, ofVec2f _endP
     m["args"].append(_delay);
     connection.send(m.toStyledString());
     pl_console::addLine("[" + userName + "]: move instruction sent");
-    
-    ofxOscMessage sm;
-    sm.setAddress("/instruction/move");
-    sm.addIntArg(myId);
-    sm.addFloatArg(_startPosition.x);
-    sm.addFloatArg(_startPosition.y);
-    sm.addFloatArg(_endPosition.x);
-    sm.addFloatArg(_endPosition.y);
-    sm.addFloatArg(_duration);
-    sm.addFloatArg(_delay);
-    PL_SoundSender::sendMessage(sm);
+    PL_SoundSender::addInstructionEvent(PL_SoundSender::MOVE, _startPosition, _endPosition, _delay, _duration, myId);
 }

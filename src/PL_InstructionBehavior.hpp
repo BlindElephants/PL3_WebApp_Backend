@@ -50,6 +50,7 @@ protected:
 
     shared_ptr<PL_GoalManager> gm;
     vector<ofVec2f> &objects;
+
 };
 
 #endif /* PL_InstructionBehavior_hpp */

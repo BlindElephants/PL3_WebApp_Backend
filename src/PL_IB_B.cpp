@@ -30,7 +30,7 @@ float PL_IB_B::getNextInstruction() {
     
     for(int i = 0 ; i < numMessages ; i ++ ) {
         float du = ofRandom(3.0, 7.0);
-        float de = ofRandom(3.0, 15.0);
+        float de = ofRandom(0.0, 5.0);
         if((du+de)>timeTillNextInstruction) timeTillNextInstruction=du+de;
         sendAddInstr(gm->getGoals()[i]->getPosition(), du, de);
     }

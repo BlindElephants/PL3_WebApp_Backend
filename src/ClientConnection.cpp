@@ -74,16 +74,25 @@ void ClientConnection::moveObject(ofVec2f _oldPosition, ofVec2f _newPosition) {
     for (ofVec2f &o : objects) {
         if(o == _oldPosition) {
             o.set(_newPosition);
-            ofxOscMessage sm;
-            sm.setAddress("/client/object_moved");
-            sm.addIntArg(myId);
-            sm.addFloatArg(_oldPosition.x);
-            sm.addFloatArg(_oldPosition.y);
-            sm.addFloatArg(_newPosition.x);
-            sm.addFloatArg(_newPosition.y);
-            PL_SoundSender::sendMessage(sm);
+//            ofxOscMessage sm;
+//            sm.setAddress("/client/object_moved");
+//            sm.addIntArg(myId);
+//            sm.addFloatArg(_oldPosition.x);
+//            sm.addFloatArg(_oldPosition.y);
+//            sm.addFloatArg(_newPosition.x);
+//            sm.addFloatArg(_newPosition.y);
+//            PL_SoundSender::sendMessage(sm);
         }
     }
+    
+    ofxOscMessage sm;
+    sm.setAddress("/client/object_moved");
+    sm.addIntArg(myId);
+    sm.addFloatArg(_oldPosition.x);
+    sm.addFloatArg(_oldPosition.y);
+    sm.addFloatArg(_newPosition.x);
+    sm.addFloatArg(_newPosition.y);
+    PL_SoundSender::sendMessage(sm);
 }
 
 void ClientConnection::removeObject(int _index) {
