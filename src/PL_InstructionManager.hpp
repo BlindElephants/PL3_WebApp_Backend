@@ -30,14 +30,17 @@ class PL_InstructionManager {
 public:
     void update();
     
-    PL_InstructionManager(shared_ptr<PL_GoalManager> _gm, string &_userName, const int &_myId, ofxLibwebsockets::Connection &_connection, vector<ofVec2f> &_objects);
+    PL_InstructionManager(shared_ptr<PL_GoalManager> _gm, string &_userName, const int &_myId, ofxLibwebsockets::Connection &_connection, vector<ofVec2f> &_objects, ofVec2f &_ClientScreenDimensions);
 private:
     ofxLibwebsockets::Connection &connection;
     const int &myId;
     string &userName;
+    ofVec2f &ClientScreenDimensions;
     shared_ptr<PL_InstructionBehavior> ib;
     shared_ptr<PL_GoalManager> gm;
     vector<ofVec2f> &objects;
+    
+    int numInstructionBehaviorsCompleted;
 };
 
 #endif /* PL_InstructionManager_hpp */

@@ -9,9 +9,9 @@
 #include "PL_IB_WAIT.hpp"
 
 
-PL_IB_WAIT::PL_IB_WAIT(shared_ptr<PL_GoalManager> _gm, string &_userName, const int &_myId, ofxLibwebsockets::Connection &_connection, vector<ofVec2f> &_objects)
+PL_IB_WAIT::PL_IB_WAIT(shared_ptr<PL_GoalManager> _gm, string &_userName, const int &_myId, ofxLibwebsockets::Connection &_connection, vector<ofVec2f> &_objects, ofVec2f &_ClientScreenDimensions)
 :
-PL_InstructionBehavior(2.5f, PL_InstructionBehaviorType::PLIB_WAIT, _gm, _userName, _myId, _connection, _objects)
+PL_InstructionBehavior(2.5f, PL_InstructionBehaviorType::PLIB_WAIT, _gm, _userName, _myId, _connection, _objects, _ClientScreenDimensions)
 {
 }
 

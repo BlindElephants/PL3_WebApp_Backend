@@ -8,6 +8,7 @@
 
 #include "ClientConnection.hpp"
 #include "PL_SoundSender.hpp" 
+#include "PL_VisServer.hpp"
 
 int ClientConnection::ClientID=0;
 
@@ -19,13 +20,13 @@ timeSinceLastPing(0.0),
 myId(ClientID++)
 {
     gm=make_shared<PL_GoalManager>(ClientScreenDimensions, ClientObjectSize);
-    im=make_shared<PL_InstructionManager>(gm, userName, myId, connection, objects);
+    im=make_shared<PL_InstructionManager>(gm, userName, myId, connection, objects, ClientScreenDimensions);
 }
 
 void ClientConnection::tick() {
     age += ofGetLastFrameTime();
-//    timeSinceLastPing+= ofGetLastFrameTime();
-//    if(timeSinceLastPing >= 2.5f) {
+    timeSinceLastPing+= ofGetLastFrameTime();
+//    if(timeSinceLastPing >= 5.0f) {
 //        Json::Value m;
 //        m["address"] = "/get/objects";
 //        connection.send(m.toStyledString());
@@ -48,6 +49,7 @@ void ClientConnection::addObject(ofVec2f _position, bool _user) {
         sm.addFloatArg(_position.x);
         sm.addFloatArg(_position.y);
         PL_SoundSender::sendMessage(sm);
+        PL_VisServer::sendMessage(sm);
     }
 }
 
@@ -62,6 +64,8 @@ void ClientConnection::moveObject(int _index, ofVec2f _newPosition) {
     sm.addFloatArg(_newPosition.x);
     sm.addFloatArg(_newPosition.y);
     PL_SoundSender::sendMessage(sm);
+    PL_VisServer::sendMessage(sm);
+
     
     objects[_index].set(_newPosition);
 }
@@ -93,6 +97,8 @@ void ClientConnection::moveObject(ofVec2f _oldPosition, ofVec2f _newPosition) {
     sm.addFloatArg(_newPosition.x);
     sm.addFloatArg(_newPosition.y);
     PL_SoundSender::sendMessage(sm);
+    PL_VisServer::sendMessage(sm);
+
 }
 
 void ClientConnection::removeObject(int _index) {
@@ -103,6 +109,8 @@ void ClientConnection::removeObject(int _index) {
     sm.addFloatArg(objects[_index].x);
     sm.addFloatArg(objects[_index].y);
     PL_SoundSender::sendMessage(sm);
+    PL_VisServer::sendMessage(sm);
+
     
     objects.erase(objects.begin()+_index);
 }
@@ -128,6 +136,8 @@ void ClientConnection::removeObject(ofVec2f _position) {
         sm.addFloatArg(_position.x);
         sm.addFloatArg(_position.y);
         PL_SoundSender::sendMessage(sm);
+        PL_VisServer::sendMessage(sm);
+
     }
 }
 

@@ -7,6 +7,10 @@
 #include <unordered_map>
 #include "ClientConnection.hpp"
 #include "PL_SoundSender.hpp"
+#include "PL_PerformerServer.hpp"
+#include "PL_AuditoryMessageBuilder.hpp"
+
+#include "PL_VisServer.hpp"
 
 class ofApp : public ofBaseApp{
     
@@ -15,6 +19,7 @@ public:
     void update();
     void draw();
     void exit();
+    void keyPressed(int key);
     
     
     ofxLibwebsockets::Server server;
@@ -28,4 +33,5 @@ public:
     unordered_map<string,shared_ptr<ClientConnection>> connections;
     
     deque<string> messages;
+    static bool runPiece;
 };

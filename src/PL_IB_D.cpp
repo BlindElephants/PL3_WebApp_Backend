@@ -9,9 +9,9 @@
 #include "PL_IB_D.hpp"
 #include "ClientUtilities.hpp"
 
-PL_IB_D::PL_IB_D(shared_ptr<PL_GoalManager> _gm, string &_userName, const int &_myId, ofxLibwebsockets::Connection &_connection, vector<ofVec2f> &_objects)
+PL_IB_D::PL_IB_D(shared_ptr<PL_GoalManager> _gm, string &_userName, const int &_myId, ofxLibwebsockets::Connection &_connection, vector<ofVec2f> &_objects, ofVec2f &_ClientScreenDimensions)
 :
-PL_InstructionBehavior(ofRandom(5, 20), PL_InstructionBehaviorType::PLIB_D, _gm, _userName, _myId, _connection, _objects)
+PL_InstructionBehavior(ofRandom(5, 20), PL_InstructionBehaviorType::PLIB_D, _gm, _userName, _myId, _connection, _objects, _ClientScreenDimensions)
 {
     gm->makeNewGoalSet_Random(1);
 }
@@ -32,6 +32,6 @@ float PL_IB_D::getNextInstruction() {
     } else {
         isFinished=true;
     }
-    timeTillNextInstruction+=ofRandom(2.0, 5.5);
+    timeTillNextInstruction+=ofRandom(2.0, 4.0);
     return timeTillNextInstruction;
 }

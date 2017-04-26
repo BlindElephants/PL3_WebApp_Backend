@@ -17,8 +17,13 @@ public:
     static pl_console& instance();
     static void addLine(string l);
     static void draw();
-    static void setSender(string addr, int port);
+    static void setSender(string addrPiA, string addrPiB, string addrPiC, int port);
     static void setFbo(float x, float y, float w, float h);
+    
+    static void addPerformerLine(int performerIndex, string l) ;
+    static void addConnectedUser(string userName);
+    static void addDisconnectedUser(string userName);
+    static void updateAudioCue(int performerIndex, string l);
 private:
     pl_console();
     pl_console(pl_console const&) {};
@@ -29,7 +34,7 @@ private:
     ofVec2f fboDrawPosition;
     ofFbo fbo;
     
-    ofxOscSender sender;
+    ofxOscSender senderPiA, senderPiB, senderPiC;
 };
 
 #endif /* pl_console_hpp */

@@ -23,8 +23,11 @@
 		5C1A6D841E9FEDBE00B71CF5 /* PL_IB_D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5C1A6D821E9FEDBE00B71CF5 /* PL_IB_D.cpp */; };
 		5C1A6D871E9FEEF000B71CF5 /* PL_IB_E.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5C1A6D851E9FEEF000B71CF5 /* PL_IB_E.cpp */; };
 		5C1A6D8A1EA010E800B71CF5 /* PL_BehaviorTypeGen.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5C1A6D881EA010E800B71CF5 /* PL_BehaviorTypeGen.cpp */; };
+		5C25FCF81EB12BE300E6BFA2 /* PL_VisServer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5C25FCF61EB12BE300E6BFA2 /* PL_VisServer.cpp */; };
 		5C2C6BEB1E9C3EDC00518ADF /* PL_IB_WAIT.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5C2C6BE91E9C3EDC00518ADF /* PL_IB_WAIT.cpp */; };
 		5C2C6BEF1E9C484500518ADF /* PL_SoundSender.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5C2C6BED1E9C484500518ADF /* PL_SoundSender.cpp */; };
+		5C33C2801EAF934900CEE47B /* PL_PerformerServer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5C33C27E1EAF934900CEE47B /* PL_PerformerServer.cpp */; };
+		5C33C2831EAFB1F200CEE47B /* PL_AuditoryMessageBuilder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5C33C2811EAFB1F200CEE47B /* PL_AuditoryMessageBuilder.cpp */; };
 		5F55E7FF0D2EE1E3D6E345E2 /* ClientConnection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B918175D91D54CC738A7CD95 /* ClientConnection.cpp */; };
 		62545D179C94265CA1389D4A /* OscOutboundPacketStream.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 63A47AC60FFAFC3BF093EC0F /* OscOutboundPacketStream.cpp */; };
 		63B57AC5BF4EF088491E0317 /* ofxXmlSettings.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 50DF87D612C5AAE17AAFA6C0 /* ofxXmlSettings.cpp */; };
@@ -124,10 +127,16 @@
 		5C1A6D861E9FEEF000B71CF5 /* PL_IB_E.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = PL_IB_E.hpp; sourceTree = "<group>"; };
 		5C1A6D881EA010E800B71CF5 /* PL_BehaviorTypeGen.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PL_BehaviorTypeGen.cpp; sourceTree = "<group>"; };
 		5C1A6D891EA010E800B71CF5 /* PL_BehaviorTypeGen.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = PL_BehaviorTypeGen.hpp; sourceTree = "<group>"; };
+		5C25FCF61EB12BE300E6BFA2 /* PL_VisServer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PL_VisServer.cpp; sourceTree = "<group>"; };
+		5C25FCF71EB12BE300E6BFA2 /* PL_VisServer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = PL_VisServer.hpp; sourceTree = "<group>"; };
 		5C2C6BE91E9C3EDC00518ADF /* PL_IB_WAIT.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PL_IB_WAIT.cpp; sourceTree = "<group>"; };
 		5C2C6BEA1E9C3EDC00518ADF /* PL_IB_WAIT.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = PL_IB_WAIT.hpp; sourceTree = "<group>"; };
 		5C2C6BED1E9C484500518ADF /* PL_SoundSender.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PL_SoundSender.cpp; sourceTree = "<group>"; };
 		5C2C6BEE1E9C484500518ADF /* PL_SoundSender.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = PL_SoundSender.hpp; sourceTree = "<group>"; };
+		5C33C27E1EAF934900CEE47B /* PL_PerformerServer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PL_PerformerServer.cpp; sourceTree = "<group>"; };
+		5C33C27F1EAF934900CEE47B /* PL_PerformerServer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = PL_PerformerServer.hpp; sourceTree = "<group>"; };
+		5C33C2811EAFB1F200CEE47B /* PL_AuditoryMessageBuilder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PL_AuditoryMessageBuilder.cpp; sourceTree = "<group>"; };
+		5C33C2821EAFB1F200CEE47B /* PL_AuditoryMessageBuilder.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = PL_AuditoryMessageBuilder.hpp; sourceTree = "<group>"; };
 		5D95092D59E7A34C9DB7823E /* Server.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = Server.cpp; path = ../../../addons/ofxLibwebsockets/libs/ofxLibwebsockets/src/Server.cpp; sourceTree = SOURCE_ROOT; };
 		63A47AC60FFAFC3BF093EC0F /* OscOutboundPacketStream.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = OscOutboundPacketStream.cpp; path = ../../../addons/ofxOsc/libs/oscpack/src/osc/OscOutboundPacketStream.cpp; sourceTree = SOURCE_ROOT; };
 		65EEFA3DA3526E9CDD9C21F9 /* ofxOscBundle.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxOscBundle.cpp; path = ../../../addons/ofxOsc/src/ofxOscBundle.cpp; sourceTree = SOURCE_ROOT; };
@@ -354,6 +363,15 @@
 			name = Utils;
 			sourceTree = "<group>";
 		};
+		5C25FCF91EB12BE500E6BFA2 /* PL_VisServer */ = {
+			isa = PBXGroup;
+			children = (
+				5C25FCF61EB12BE300E6BFA2 /* PL_VisServer.cpp */,
+				5C25FCF71EB12BE300E6BFA2 /* PL_VisServer.hpp */,
+			);
+			name = PL_VisServer;
+			sourceTree = "<group>";
+		};
 		5C2C6BEC1E9C483700518ADF /* PL_SoundServer */ = {
 			isa = PBXGroup;
 			children = (
@@ -381,6 +399,17 @@
 				6F6AC259974E24CD80F857C2 /* pl_console.hpp */,
 			);
 			name = Console;
+			sourceTree = "<group>";
+		};
+		5C33C27D1EAF933200CEE47B /* PL_PerformerServer */ = {
+			isa = PBXGroup;
+			children = (
+				5C33C27E1EAF934900CEE47B /* PL_PerformerServer.cpp */,
+				5C33C27F1EAF934900CEE47B /* PL_PerformerServer.hpp */,
+				5C33C2811EAFB1F200CEE47B /* PL_AuditoryMessageBuilder.cpp */,
+				5C33C2821EAFB1F200CEE47B /* PL_AuditoryMessageBuilder.hpp */,
+			);
+			name = PL_PerformerServer;
 			sourceTree = "<group>";
 		};
 		641362CA659FAFEE4E81001B /* posix */ = {
@@ -537,8 +566,10 @@
 				E4B69E1E0A3A1BDC003C02F2 /* ofApp.cpp */,
 				E4B69E1F0A3A1BDC003C02F2 /* ofApp.h */,
 				5C2C6BF01E9C4B5C00518ADF /* Client */,
+				5C33C27D1EAF933200CEE47B /* PL_PerformerServer */,
 				5C2C6BEC1E9C483700518ADF /* PL_SoundServer */,
 				5C11554F1E9AF45700E3B3A0 /* Utils */,
+				5C25FCF91EB12BE500E6BFA2 /* PL_VisServer */,
 			);
 			path = src;
 			sourceTree = SOURCE_ROOT;
@@ -679,6 +710,7 @@
 				5C1A6D871E9FEEF000B71CF5 /* PL_IB_E.cpp in Sources */,
 				F3AD9E2A2E56B6AF32A0BDAF /* Server.cpp in Sources */,
 				CCD326ED8E01272042317DD2 /* Util.cpp in Sources */,
+				5C25FCF81EB12BE300E6BFA2 /* PL_VisServer.cpp in Sources */,
 				72A929D3561B8232A182ABFC /* ofxOscBundle.cpp in Sources */,
 				5864AD82E20F15536D054EA3 /* ofxOscMessage.cpp in Sources */,
 				5C1A6D7E1E9FEB2000B71CF5 /* PL_IB_B.cpp in Sources */,
@@ -689,6 +721,8 @@
 				5C11553C1E9A9C4F00E3B3A0 /* PL_InstructionBehavior.cpp in Sources */,
 				5C11554E1E9AF32D00E3B3A0 /* ClientUtilities.cpp in Sources */,
 				640279EE111671BD026CB013 /* ofxOscReceiver.cpp in Sources */,
+				5C33C2831EAFB1F200CEE47B /* PL_AuditoryMessageBuilder.cpp in Sources */,
+				5C33C2801EAF934900CEE47B /* PL_PerformerServer.cpp in Sources */,
 				8F5205AEF8861EF234F0651A /* ofxOscSender.cpp in Sources */,
 				ADE367465D2A8EBAD4C7A8D9 /* IpEndpointName.cpp in Sources */,
 				5C2C6BEF1E9C484500518ADF /* PL_SoundSender.cpp in Sources */,

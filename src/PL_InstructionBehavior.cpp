@@ -10,7 +10,7 @@
 #include "PL_SoundSender.hpp"
 #include "PL_BehaviorTypeGen.hpp"
 
-PL_InstructionBehavior::PL_InstructionBehavior(float _timeTillFirstInstruction, PL_InstructionBehaviorType _myType, shared_ptr<PL_GoalManager> _gm, string &_userName, const int &_myId, ofxLibwebsockets::Connection &_connection, vector<ofVec2f> &_objects)
+PL_InstructionBehavior::PL_InstructionBehavior(float _timeTillFirstInstruction, PL_InstructionBehaviorType _myType, shared_ptr<PL_GoalManager> _gm, string &_userName, const int &_myId, ofxLibwebsockets::Connection &_connection, vector<ofVec2f> &_objects, ofVec2f &_ClientScreenDimensions)
 :
 myType(_myType),
 isFinished(false),
@@ -21,7 +21,8 @@ gm(_gm),
 myId(_myId),
 userName(_userName),
 connection(_connection),
-objects(_objects)
+objects(_objects),
+ClientScreenDimensions(_ClientScreenDimensions)
 {
     followType = FollowGen::getFollowType(myType);
 };
@@ -82,7 +83,10 @@ void PL_InstructionBehavior::sendAddInstr(ofVec2f _goalPosition, float _duration
     m["args"].append(_delay);
     connection.send(m.toStyledString());
     pl_console::addLine("[" + userName + "]: add instruction sent");
-    PL_SoundSender::addInstructionEvent(PL_SoundSender::ADD, _goalPosition, _delay, _duration, myId);
+    
+    ofVec2f n = _goalPosition;
+    normalizeCoords(n);
+    PL_SoundSender::addInstructionEvent(PL_SoundSender::ADD, n, _delay, _duration, myId);
 }
 
 void PL_InstructionBehavior::sendRemoveInstr(ofVec2f _goalPosition, float _duration, float _delay) {
@@ -97,7 +101,10 @@ void PL_InstructionBehavior::sendRemoveInstr(ofVec2f _goalPosition, float _durat
     m["args"].append(_delay);
     connection.send(m.toStyledString());
     pl_console::addLine("[" + userName + "]: remove instruction sent");
-    PL_SoundSender::addInstructionEvent(PL_SoundSender::REMOVE, _goalPosition, _delay, _duration, myId);
+    
+    ofVec2f n = _goalPosition;
+    normalizeCoords(n);
+    PL_SoundSender::addInstructionEvent(PL_SoundSender::REMOVE, n, _delay, _duration, myId);
 }
 
 void PL_InstructionBehavior::sendMoveInstr(ofVec2f _startPosition, ofVec2f _endPosition, float _duration, float _delay) {
@@ -116,5 +123,16 @@ void PL_InstructionBehavior::sendMoveInstr(ofVec2f _startPosition, ofVec2f _endP
     m["args"].append(_delay);
     connection.send(m.toStyledString());
     pl_console::addLine("[" + userName + "]: move instruction sent");
-    PL_SoundSender::addInstructionEvent(PL_SoundSender::MOVE, _startPosition, _endPosition, _delay, _duration, myId);
+    
+    ofVec2f s=_startPosition;
+    ofVec2f e=_endPosition;
+    normalizeCoords(s);
+    normalizeCoords(e);
+    
+    PL_SoundSender::addInstructionEvent(PL_SoundSender::MOVE, s, e, _delay, _duration, myId);
+}
+
+void PL_InstructionBehavior::normalizeCoords(ofVec2f &position) {
+    position += (ClientScreenDimensions*0.5);
+    position /= ClientScreenDimensions;
 }

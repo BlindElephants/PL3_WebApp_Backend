@@ -1,6 +1,8 @@
 #include "ofApp.h"
 #include "PL_BehaviorTypeGen.hpp"
 
+bool ofApp::runPiece=false;
+
 //--------------------------------------------------------------
 void ofApp::setup(){
 //    ofEnableAntiAliasing();
@@ -8,11 +10,18 @@ void ofApp::setup(){
     
     FollowGen::setup();
 
-    pl_console::setSender("10.0.1.7", 7891);
-//    pl_console::setSender("10.0.1.17", 7891);
+    pl_console::setSender("10.0.1.4", "10.0.1.5", "10.0.1.6", 7891);
     pl_console::setFbo(0, 0, 400, ofGetHeight());
     pl_console::addLine("server initialized");
     pl_console::addLine("number clients: 0");
+    
+    PL_VisServer::setup("10.0.1.3", 7891);
+    
+    PL_PerformerServer::setup("localhost", 7895);
+    PL_PerformerServer::setMsgTimerLock(5.0f);
+    
+    PL_AuditoryMessageBuilder::init();
+    
     ofSetBackgroundColor(ofColor::black);
 
     string soundAddr="localhost";
@@ -20,6 +29,7 @@ void ofApp::setup(){
     
     PL_SoundSender::setup(soundAddr, soundPort);
     pl_console::addLine("connection to sound server at " + soundAddr + ": " + ofToString(soundPort));
+    pl_console::addLine("connection to performer server at localhost: " + ofToString(7895));
     
     ofxLibwebsockets::ServerOptions s = ofxLibwebsockets::defaultServerOptions();
     s.port = 8080;
@@ -31,6 +41,13 @@ void ofApp::setup(){
 
 //--------------------------------------------------------------
 void ofApp::update(){
+    
+    PL_SoundSender::tick();
+    
+    if(ofApp::runPiece) {
+        PL_PerformerServer::tick();
+        PL_AuditoryMessageBuilder::tick();
+    }
     while(messages.size()>0) {
         pl_console::addLine(messages.front());
         messages.pop_front();
@@ -48,6 +65,13 @@ void ofApp::exit() {
     PL_SoundSender::sendMessage(m);
 }
 
+
+void ofApp::keyPressed(int key) {
+    if(key == ' ') {
+        ofApp::runPiece = !ofApp::runPiece;
+        cout << ofApp::runPiece << endl;
+    }
+}
 
 void ofApp::onConnect(ofxLibwebsockets::Event &args) {cout << "client connected" << endl;}
 
@@ -75,6 +99,8 @@ void ofApp::onClose(ofxLibwebsockets::Event &args) {
     if(c == connections.end()) {
         messages.push_back("ERROR: trying to remove connection that doesn't exist");
     } else {
+        pl_console::addDisconnectedUser(c->second->getUserName());
+        
         m.addIntArg(c->second->getId());
         PL_SoundSender::sendMessage(m);
         connections.erase(args.conn.getClientIP());
@@ -107,7 +133,7 @@ void ofApp::onMessage(ofxLibwebsockets::Event &args) {
             it->second->setObjects(allObjects);
         } else if(args.json["address"] == "/client/user") {
             messages.push_back("User Name: " + a[0].asString() + " device dimensions: " + ofToString(a[1].asFloat()) + ", " + ofToString(a[2].asFloat()));
-
+            pl_console::addConnectedUser(a[0].asString());
             cout << a[0].asString() << ", " << a[1].asFloat() << ", " << a[2].asFloat() << ", " << a[3].asFloat() << endl;
             it->second->setClientUser(a[0].asString(), a[1].asFloat(), a[2].asFloat(), a[3].asFloat());
         }

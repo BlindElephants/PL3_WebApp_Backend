@@ -7,6 +7,7 @@
 //
 
 #include "PL_SoundSender.hpp"
+#include "PL_VisServer.hpp"
 
 PL_SoundSender &PL_SoundSender::instance() {
     static PL_SoundSender s;
@@ -50,6 +51,7 @@ void PL_SoundSender::tick() {
                 m.addFloatArg(instance().events[i].duration);
                 
                 instance().sender.sendMessage(m);
+                PL_VisServer::sendMessage(m);
                 instance().events.erase(instance().events.begin()+i);
             }
         }

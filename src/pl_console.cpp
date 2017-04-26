@@ -24,8 +24,10 @@ pl_console &pl_console::instance() {
     return c;
 }
 
-void pl_console::setSender(string addr, int port) {
-    instance().sender.setup(addr, port);
+void pl_console::setSender(string addrPiA, string addrPiB, string addrPiC, int port) {
+    instance().senderPiA.setup(addrPiA, port);
+    instance().senderPiB.setup(addrPiB, port);
+    instance().senderPiC.setup(addrPiC, port);
 }
 
 void pl_console::addLine(string l) {
@@ -33,7 +35,9 @@ void pl_console::addLine(string l) {
     ofxOscMessage m;
     m.setAddress("/term/line");
     m.addStringArg(l);
-    instance().sender.sendMessage(m);
+    instance().senderPiA.sendMessage(m);
+    instance().senderPiB.sendMessage(m);
+    instance().senderPiC.sendMessage(m);
     
     instance().lines.push_back(l);
     while(instance().lines.size()>(instance().fbo.getHeight()/12)-1) {
@@ -54,6 +58,29 @@ void pl_console::addLine(string l) {
     ofEnableBlendMode(OF_BLENDMODE_ALPHA);
 }
 
+void pl_console::addPerformerLine(int performerIndex, string l) {
+    ofxOscMessage m;
+    m.setAddress("/perf/line");
+    m.addStringArg(l);
+    
+    if(performerIndex==0) {
+        instance().senderPiB.sendMessage(m);
+    } else if(performerIndex==1) {
+        instance().senderPiC.sendMessage(m);
+    }
+}
+
+void pl_console::updateAudioCue(int performerIndex, string l) {
+    ofxOscMessage m;
+    m.setAddress("/performer/audio");
+    m.addStringArg(l);
+    if(performerIndex==0) {
+        instance().senderPiB.sendMessage(m);
+    } else if(performerIndex==1) {
+        instance().senderPiC.sendMessage(m);
+    }
+}
+
 void pl_console::draw() {
     ofSetColor(ofColor::white);
     ofFill();
@@ -72,4 +99,18 @@ void pl_console::setFbo(float x, float y, float w, float h) {
     ofDrawRectangle(1, 1, instance().fbo.getWidth()-2, instance().fbo.getHeight()-2);
     instance().fbo.end();
     instance().fboDrawPosition.set(x,y);
+}
+
+void pl_console::addConnectedUser(string userName) {
+    ofxOscMessage m;
+    m.setAddress("/user/connected");
+    m.addStringArg(userName);
+    instance().senderPiA.sendMessage(m);
+}
+
+void pl_console::addDisconnectedUser(string userName) {
+    ofxOscMessage m;
+    m.setAddress("/user/disconnected");
+    m.addStringArg(userName);
+    instance().senderPiA.sendMessage(m);
 }
