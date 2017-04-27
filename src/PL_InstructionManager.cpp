@@ -41,7 +41,7 @@ void PL_InstructionManager::update() {
             PL_PerformerServer::sendVibeMessage(userName, ofRandom(2), ofRandom(5)+1, 0.0f, ofRandom(50, 500), ofRandom(0, 100), 50);
             
             numInstructionBehaviorsCompleted++;
-            if(numInstructionBehaviorsCompleted>4) {
+            if(numInstructionBehaviorsCompleted>2) {
                 ofxOscMessage m;
                 vector<int> msgInts;
                 string a=PL_AuditoryMessageBuilder::getAuditoryMessage(msgInts);

@@ -97,12 +97,19 @@ bool PL_PerformerServer::sendAuditoryMessage(string clientName, int performerInd
             if(msgInts.size()) {
                 for(int i=0; i<msgInts.size(); i++ ) {
                     m.addIntArg(msgInts[i]);
+                    if(msgInts[i]==25 && msgInts.size()>i+1) {
+                        ofxOscMessage vm;
+                        vm.setAddress("/auditory/msg");
+                        vm.addIntArg(msgInts[i+1]);
+                        PL_VisServer::sendMessage(vm);
+                    }
                 }
             } else {
                 cout << "[ERROR] no message ints in PL_PerformerServer::sendAuditoryMessage()";
             }
             instance().sender.sendMessage(m);
-            PL_VisServer::sendMessage(m);
+            
+//            PL_VisServer::sendMessage(m);
 
             instance().auditoryMsgTimerA=0.0f;
             
@@ -122,6 +129,12 @@ bool PL_PerformerServer::sendAuditoryMessage(string clientName, int performerInd
             if(msgInts.size()) {
                 for(int i=0; i<msgInts.size(); i++ ) {
                     m.addIntArg(msgInts[i]);
+                    if(msgInts[i]==25 && msgInts.size()>i+1) {
+                        ofxOscMessage vm;
+                        vm.setAddress("/auditory/msg");
+                        vm.addIntArg(msgInts[i+1]);
+                        PL_VisServer::sendMessage(vm);
+                    }
                 }
             } else {
                 cout << "[ERROR] no message ints in PL_PerformerServer::sendAuditoryMessage()";

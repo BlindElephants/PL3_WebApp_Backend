@@ -79,17 +79,21 @@ void ofApp::onOpen(ofxLibwebsockets::Event &args) {
     shared_ptr<ClientConnection> cc = make_shared<ClientConnection>(args.conn);
     std::pair<string, shared_ptr<ClientConnection>> thisConnection(args.conn.getClientIP(), cc);
     connections.insert(thisConnection);
+    
     Json::Value md;
     md["address"] = "/get/user";
     args.conn.send(md.toStyledString());
     Json::Value mo;
     mo["address"] = "/get/objects";
     args.conn.send(mo.toStyledString());
+    
+    
     ofxOscMessage m;
     m.setAddress("/client/connected");
     m.addIntArg(cc->getId());
     PL_SoundSender::sendMessage(m);
-    messages.push_back("number clients: " + ofToString(connections.size()));    
+    PL_VisServer::sendMessage(m);
+    messages.push_back("number clients: " + ofToString(connections.size()));
 }
 
 void ofApp::onClose(ofxLibwebsockets::Event &args) {
@@ -103,6 +107,7 @@ void ofApp::onClose(ofxLibwebsockets::Event &args) {
         
         m.addIntArg(c->second->getId());
         PL_SoundSender::sendMessage(m);
+        PL_VisServer::sendMessage(m);
         connections.erase(args.conn.getClientIP());
         messages.push_back("number clients: " + ofToString(connections.size()));
     }
