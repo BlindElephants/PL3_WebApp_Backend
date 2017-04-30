@@ -23,6 +23,11 @@ public:
     
     static bool sendVibeMessage(string clientName, int performerIndex, int motorNumber, float delay, float atk, float sus, float rel);
     static bool sendAuditoryMessage(string clientName, int performerIndex, string auditoryMessage, vector<int> &msgInts);
+    
+    static void setVibeLockoutTimer(float _lockoutTimer);
+    static void setAuditoryLockoutTimer(float _lockoutTimer);
+
+    static int numInstructionsForAuditory;
 private:
     PL_PerformerServer() {};
     PL_PerformerServer(PL_PerformerServer const&) {};
@@ -38,6 +43,7 @@ private:
     float auditoryMsgTimerA, auditoryMsgTimerB;
     float auditoryMsgTimerLock;
     bool  canSendAuditoryMsgA, canSendAuditoryMsgB;
+    
 };
 
 #endif /* PL_PerformerServer_hpp */

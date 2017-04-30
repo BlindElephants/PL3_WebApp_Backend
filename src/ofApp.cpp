@@ -70,6 +70,22 @@ void ofApp::keyPressed(int key) {
     if(key == ' ') {
         ofApp::runPiece = !ofApp::runPiece;
         cout << ofApp::runPiece << endl;
+        ofxOscMessage m;
+        m.setAddress("/run/performance");
+        m.addBoolArg(ofApp::runPiece);
+        PL_VisServer::sendMessage(m);
+    } else if(key == 'B') {
+        ofxOscMessage m;
+        m.setAddress("/grid/all/color");
+        m.addFloatArg(0.0f);
+        m.addFloatArg(5.5f);
+        PL_VisServer::sendMessage(m);
+    } else if(key == 'U') {
+        ofxOscMessage m;
+        m.setAddress("/grid/all/color");
+        m.addFloatArg(255.0f);
+        m.addFloatArg(2.0);
+        PL_VisServer::sendMessage(m);
     }
 }
 

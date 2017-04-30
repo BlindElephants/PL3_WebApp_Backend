@@ -9,6 +9,9 @@
 #include "PL_PerformerServer.hpp"
 #include "pl_console.hpp"
 #include "PL_VisServer.hpp"
+#include "PL_SoundSender.hpp"
+
+int PL_PerformerServer::numInstructionsForAuditory=2;
 
 PL_PerformerServer &PL_PerformerServer::instance() {
     static PL_PerformerServer p;
@@ -54,6 +57,9 @@ bool PL_PerformerServer::sendVibeMessage(string clientName, int performerIndex, 
             m.addIntArg(sus);
             m.addIntArg(rel);
             instance().sender.sendMessage(m);
+            
+            PL_SoundSender::sendMessage(m);
+            
             PL_VisServer::sendMessage(m);
             instance().msgTimerA=0.0f;
             string s = "["+clientName+"] : tactile message sent to performer [" + ofToString(performerIndex) + "] motor: [" + ofToString(motorNumber) + "] // " + ofToString(delay) + " " + ofToString(atk) + " " + ofToString(sus) + " " + ofToString(rel);
@@ -73,6 +79,9 @@ bool PL_PerformerServer::sendVibeMessage(string clientName, int performerIndex, 
             m.addIntArg(sus);
             m.addIntArg(rel);
             instance().sender.sendMessage(m);
+            
+            PL_SoundSender::sendMessage(m);
+
             PL_VisServer::sendMessage(m);
 
             instance().msgTimerB=0.0f;
@@ -100,6 +109,8 @@ bool PL_PerformerServer::sendAuditoryMessage(string clientName, int performerInd
                     if(msgInts[i]==25 && msgInts.size()>i+1) {
                         ofxOscMessage vm;
                         vm.setAddress("/auditory/msg");
+                        vm.addStringArg(clientName);
+                        vm.addIntArg(performerIndex);
                         vm.addIntArg(msgInts[i+1]);
                         PL_VisServer::sendMessage(vm);
                     }
@@ -108,6 +119,11 @@ bool PL_PerformerServer::sendAuditoryMessage(string clientName, int performerInd
                 cout << "[ERROR] no message ints in PL_PerformerServer::sendAuditoryMessage()";
             }
             instance().sender.sendMessage(m);
+            
+            ofxOscMessage sm;
+            sm.setAddress("/auditory/msg");
+            sm.addIntArg(performerIndex);
+            PL_SoundSender::sendMessage(sm);
             
 //            PL_VisServer::sendMessage(m);
 
@@ -132,6 +148,8 @@ bool PL_PerformerServer::sendAuditoryMessage(string clientName, int performerInd
                     if(msgInts[i]==25 && msgInts.size()>i+1) {
                         ofxOscMessage vm;
                         vm.setAddress("/auditory/msg");
+                        vm.addStringArg(clientName);
+                        vm.addIntArg(performerIndex);
                         vm.addIntArg(msgInts[i+1]);
                         PL_VisServer::sendMessage(vm);
                     }
@@ -140,7 +158,12 @@ bool PL_PerformerServer::sendAuditoryMessage(string clientName, int performerInd
                 cout << "[ERROR] no message ints in PL_PerformerServer::sendAuditoryMessage()";
             }
             instance().sender.sendMessage(m);
-            PL_VisServer::sendMessage(m);
+//            PL_VisServer::sendMessage(m);
+            
+            ofxOscMessage sm;
+            sm.setAddress("/auditory/msg");
+            sm.addIntArg(performerIndex);
+            PL_SoundSender::sendMessage(sm);
 
             instance().auditoryMsgTimerB=0.0f;
             
@@ -154,4 +177,12 @@ bool PL_PerformerServer::sendAuditoryMessage(string clientName, int performerInd
         }
     }
     return false;
+}
+
+void PL_PerformerServer::setVibeLockoutTimer(float _lockoutTimer) {
+    instance().msgTimerLock=_lockoutTimer;
+}
+
+void PL_PerformerServer::setAuditoryLockoutTimer(float _lockoutTimer) {
+    instance().auditoryMsgTimerLock=_lockoutTimer;
 }

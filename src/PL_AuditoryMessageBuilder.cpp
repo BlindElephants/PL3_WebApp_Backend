@@ -10,7 +10,7 @@
 #define numberPairsInstr 4
 #define numberSimpleInstr 7
 #define numberDescriptors 6
-#define numberDirectives 4
+#define numberDirectives 3
 #define numberValues 10
 
 #include "PL_AuditoryMessageBuilder.hpp"
@@ -62,7 +62,7 @@ void PL_AuditoryMessageBuilder::init() {
     
     instance().directives={
         "height",
-        "range",
+//        "range",
         "size",
         "speed"
     };
@@ -115,7 +115,7 @@ void PL_AuditoryMessageBuilder::init() {
     
     instance().directivesNum={
         17, //"height",
-        25, //"range",
+//        25, //"range",
         28, //"size",
         29  //"speed"
     };
@@ -147,7 +147,7 @@ string PL_AuditoryMessageBuilder::getAuditoryMessage(vector<int> &msgInts) {
     } else {
         float p = ofRandom(7.5);
         
-        if(p<2.0) {
+        if(p<2.5) {
         //choose from repeatInstr
             m+=instance().repeatInstr[0];
             msgInts.push_back(instance().repeatInstrNum[0]);
@@ -158,23 +158,23 @@ string PL_AuditoryMessageBuilder::getAuditoryMessage(vector<int> &msgInts) {
             m+=" ";
             m+=instance().repeatInstr[2];
             msgInts.push_back(instance().repeatInstrNum[2]);
-        } else if(p<4.0) {
+        } else if(p<3.5) {
         //choose from pairsInstr
             int i=ofRandom(numberPairsInstr);
             m+=instance().pairsInstr[i];
             msgInts.push_back(instance().pairsInstrNum[i]);
-        } else if(p<5.0) {
-        //choose from simpleInstr
-            m+=instance().simpleInstr[2];
-            msgInts.push_back(instance().simpleInstrNum[2]);
-            m+= " ";
-            int i=ofRandom(3, 7);
-            m+=instance().simpleInstr[i];
-            msgInts.push_back(instance().simpleInstrNum[i]);
+//        } else if(p<5.0) {
+//        //choose from simpleInstr
+//            m+=instance().simpleInstr[2];
+//            msgInts.push_back(instance().simpleInstrNum[2]);
+//            m+= " ";
+//            int i=ofRandom(3, 7);
+//            m+=instance().simpleInstr[i];
+//            msgInts.push_back(instance().simpleInstrNum[i]);
         } else if(p<7.5) {
         //choose from descriptors
             float pa = ofRandom(1);
-            if(pa <=0.5) {
+            if(pa <=1.0) {
                 int i=ofRandom(numberDescriptors);
                 m+=instance().descriptors[i];
                 msgInts.push_back(instance().descriptorsNum[i]);
@@ -230,6 +230,13 @@ string PL_AuditoryMessageBuilder::getAuditoryMessage(vector<int> &msgInts) {
         
         
     }
+    
+    m+=" range ";
+    msgInts.push_back(25);
+    int v=ofRandom(numberValues);
+    m+=instance().values[v];
+    msgInts.push_back(instance().valuesNum[v]);
+    
     cout << m << endl;
     return m;
 }

@@ -38,10 +38,14 @@ void PL_InstructionManager::update() {
         PL_SoundSender::sendMessage(m);
         PL_VisServer::sendMessage(m);
         if(ofApp::runPiece) {
-            PL_PerformerServer::sendVibeMessage(userName, ofRandom(2), ofRandom(5)+1, 0.0f, ofRandom(50, 500), ofRandom(0, 100), 50);
+            float duration=ofRandom(0.5, 5.0);
+            duration*=1000;
+//            PL_PerformerServer::sendVibeMessage(string clientName, int performerIndex, int motorNumber, float delay, float atk, float sus, float rel)
+//            PL_PerformerServer::sendVibeMessage(userName, ofRandom(2), ofRandom(5)+1, 0.0f, ofRandom(50, 500), ofRandom(0, 100), 50);
+            PL_PerformerServer::sendVibeMessage(userName, ofRandom(2), ofRandom(5)+1, 0.0f, duration*0.25, duration*0.65, duration*0.1);
             
             numInstructionBehaviorsCompleted++;
-            if(numInstructionBehaviorsCompleted>2) {
+            if(numInstructionBehaviorsCompleted>=PL_PerformerServer::numInstructionsForAuditory) {
                 ofxOscMessage m;
                 vector<int> msgInts;
                 string a=PL_AuditoryMessageBuilder::getAuditoryMessage(msgInts);
